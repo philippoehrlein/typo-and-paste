@@ -3,7 +3,7 @@
   "description": "A Kirby plugin for managing and inserting special characters with multi-language support.",
   "type": "kirby-plugin",
   "license": "MIT",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "authors": [
     {
       "name": "Philipp Oehrlein",
@@ -11,7 +11,7 @@
     }
   ],
   "require": {
-    "getkirby/cms": "^3.0",
+    "getkirby/cms": "^4.0",
     "getkirby/composer-installer": "^1.1"
   },
   "autoload": {
