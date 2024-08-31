@@ -49,7 +49,7 @@
     },
     computed: {
       computedCharacters() {
-        const currentLanguage = his.$panel.user.language || "en";
+        const currentLanguage = this.$panel.user.language || "en";
         return this.characters.map((group) => {
           let label;
           if (typeof group.label === "object" && group.label !== null) {
