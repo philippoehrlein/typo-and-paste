@@ -81,28 +81,31 @@ Here is an example configuration in `site/config/config.php`:
 
 ```php
 return [
-    'philippoehrlein.typo-and-paste.translations' => [
-        'en' => [
-            'button_title' => 'Special Characters',
-            'copied_message' => '${character} copied to clipboard',
-        ],
-        'de' => [
-            'button_title' => 'Sonderzeichen',
-            'copied_message' => '${character} in die Zwischenablage kopiert',
-        ],
-        // Add more languages...
-    ],
-    'philippoehrlein.typo-and-paste.characters' => [
-        [
-            'label' => [
-                'en' => 'Arrows',
-                'de' => 'Pfeile',
-                // Add more languages...
+    'philippoehrlein.typo-and-paste' => [
+        'translations' => [
+            'en' => [
+                'button_title' => 'Special Characters',
+                'copied_message' => '${character} copied to clipboard',
             ],
-            'characters' => ['←', '→', '↑', '↓']
+            'de' => [
+                'button_title' => 'Sonderzeichen',
+                'copied_message' => '${character} in die Zwischenablage kopiert',
+            ],
+            // Additional languages can be added here...
         ],
-        // Add more character groups...
-    ],
+        'characters' => [
+            [
+                'label' => [
+                    'en' => 'Quotation Marks',
+                    'de' => 'Anführungszeichen',
+                    // Additional translations can be added here...
+                ],
+                'lang' => 'fr',
+                'characters' => ['«', '»', '‹', '›']
+            ],
+            // Additional characters and categories can be added here...
+        ]
+    ]
 ];
 ```
 
