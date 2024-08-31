@@ -41,15 +41,21 @@ panel.plugin("philippoehrlein/typo-and-paste", {
             );
 
             if (buttonGroup) {
-              fetch('/typo-and-paste/characters')
-                .then((response) => response.json())
-                .then((data) => {
-                  this.characters = data;
+              Promise.all([
+                fetch('/typo-and-paste/characters').then((response) => response.json()),
+                fetch('/typo-and-paste/translations').then((response) => response.json())
+              ])
+                .then(([charactersData, translationsData]) => {
+                  this.characters = charactersData;
+                  this.translations = translationsData;
 
                   const button = new Vue({
                     render: (h) =>
                       h('typo-and-paste-button', {
-                        props: { characters: this.characters },
+                        props: { 
+                          characters: this.characters, 
+                          translations: this.translations 
+                        },
                       }),
                   }).$mount();
 
@@ -57,7 +63,7 @@ panel.plugin("philippoehrlein/typo-and-paste", {
                   this.$forceUpdate();
                 })
                 .catch((error) => {
-                  console.error('Error fetching characters:', error);
+                  console.error('Error fetching characters or translations:', error);
                 });
             }
           }

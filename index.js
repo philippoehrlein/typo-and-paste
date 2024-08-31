@@ -21,6 +21,10 @@
         type: Array,
         required: true
       },
+      translations: {
+        type: Object,
+        required: true
+      },
       languageCode: {
         type: String,
         default: "en",
@@ -30,11 +34,22 @@
     methods: {
       copyToClipboard(character) {
         navigator.clipboard.writeText(character);
+        window.panel.notification.info({
+          message: this.translateString("copied_message", { character }),
+          icon: null
+        });
+      },
+      translateString(key, variables = {}) {
+        const languageCode = this.$panel.user.language || "en";
+        const translationTemplate = this.translations[languageCode || "en"][key] || key;
+        return translationTemplate.replace(/\$\{(\w+)\}/g, (match, variable) => {
+          return variables[variable] !== void 0 ? variables[variable] : match;
+        });
       }
     },
     computed: {
       computedCharacters() {
-        const currentLanguage = this.$panel.user.language || "en";
+        const currentLanguage = his.$panel.user.language || "en";
         return this.characters.map((group) => {
           let label;
           if (typeof group.label === "object" && group.label !== null) {
@@ -77,10 +92,23 @@
       characters: {
         type: Array,
         required: true
+      },
+      translations: {
+        type: Object,
+        required: true
       }
     },
     components: {
       "typo-and-paste-panel": TypoAndPastePanel
+    },
+    methods: {
+      translateString(key, variables = {}) {
+        const languageCode = this.$panel.user.language || "en";
+        const translationTemplate = this.translations[languageCode || "en"][key] || key;
+        return translationTemplate.replace(/\$\{(\w+)\}/g, (match, variable) => {
+          return variables[variable] !== void 0 ? variables[variable] : match;
+        });
+      }
     },
     computed: {
       languageCode() {
@@ -93,13 +121,16 @@
         }
         return "en";
       }
+    },
+    mounted() {
+      console.log(this.translations);
     }
   };
   var _sfc_render = function render() {
     var _vm = this, _c = _vm._self._c;
-    return _c("div", [_c("k-button", { staticClass: "k-page-view-options", attrs: { "dropdown": true, "variant": "filled", "size": "sm", "icon": "typo-and-paste" }, on: { "click": function($event) {
+    return _c("div", [_c("k-button", { staticClass: "k-page-view-options", attrs: { "dropdown": true, "title": _vm.translateString("button_title"), "variant": "filled", "size": "sm", "icon": "typo-and-paste" }, on: { "click": function($event) {
       return _vm.$refs.typopanel.toggle();
-    } } }), _c("k-dropdown-content", { ref: "typopanel", attrs: { "align-x": "end" } }, [_c("typo-and-paste-panel", { attrs: { "characters": _vm.characters, "languageCode": _vm.languageCode } })], 1)], 1);
+    } } }), _c("k-dropdown-content", { ref: "typopanel", attrs: { "align-x": "end" } }, [_c("typo-and-paste-panel", { attrs: { "characters": _vm.characters, "languageCode": _vm.languageCode, "translations": _vm.translations } })], 1)], 1);
   };
   var _sfc_staticRenderFns = [];
   _sfc_render._withStripped = true;
@@ -153,17 +184,24 @@
                 (child) => child.$options.name === "k-button-group"
               );
               if (buttonGroup) {
-                fetch("/typo-and-paste/characters").then((response) => response.json()).then((data) => {
-                  this.characters = data;
+                Promise.all([
+                  fetch("/typo-and-paste/characters").then((response) => response.json()),
+                  fetch("/typo-and-paste/translations").then((response) => response.json())
+                ]).then(([charactersData, translationsData]) => {
+                  this.characters = charactersData;
+                  this.translations = translationsData;
                   const button = new Vue({
                     render: (h) => h("typo-and-paste-button", {
-                      props: { characters: this.characters }
+                      props: {
+                        characters: this.characters,
+                        translations: this.translations
+                      }
                     })
                   }).$mount();
                   buttonGroup.$el.prepend(button.$el);
                   this.$forceUpdate();
                 }).catch((error) => {
-                  console.error("Error fetching characters:", error);
+                  console.error("Error fetching characters or translations:", error);
                 });
               }
             }

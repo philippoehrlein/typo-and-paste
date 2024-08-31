@@ -2,12 +2,41 @@
 
 Kirby::plugin('philippoehrlein/typo-and-paste', [
     'options' => [
+        'translations' => [
+            'en' => [
+                'button_title' => 'Special Characters',
+                'copied_message' => '${character} copied to clipboard',
+            ],
+            'de' => [
+                'button_title' => 'Sonderzeichen',
+                'copied_message' => '${character} in die Zwischenablage kopiert',
+            ],
+            'fr' => [
+                'button_title' => 'Caractères Spéciaux',
+                'copied_message' => '${character} copié dans le presse-papiers',
+            ],
+            'es' => [
+                'button_title' => 'Caracteres Especiales',
+                'copied_message' => '${character} copiado al portapapeles',
+            ],
+            'nl' => [
+                'button_title' => 'Speciale Tekens',
+                'copied_message' => '${character} gekopieerd naar klembord',
+            ],
+            'it' => [
+                'button_title' => 'Caratteri Speciali',
+                'copied_message' => '${character} copiato negli appunti',
+            ]
+        ],
         'characters' => [
             [
                 'label' => [
                     'en' => 'Quotation Marks',
                     'de' => 'Anführungszeichen',
-                    'fr' => 'Guillemets'
+                    'fr' => 'Guillemets',
+                    'es' => 'Comillas',
+                    'nl' => 'Aanhalingstekens',
+                    'it' => 'Virgolette'
                 ],
                 'lang' => 'fr',
                 'characters' => ['«', '»', '‹', '›']
@@ -16,7 +45,46 @@ Kirby::plugin('philippoehrlein/typo-and-paste', [
                 'label' => [
                     'en' => 'Quotation Marks',
                     'de' => 'Anführungszeichen',
-                    'fr' => 'Guillemets'
+                    'fr' => 'Guillemets',
+                    'es' => 'Comillas',
+                    'nl' => 'Aanhalingstekens',
+                    'it' => 'Virgolette'
+                ],
+                'lang' => 'it',
+                'characters' => ['«', '»']
+            ],
+            [
+                'label' => [
+                    'en' => 'Quotation Marks',
+                    'de' => 'Anführungszeichen',
+                    'fr' => 'Guillemets',
+                    'es' => 'Comillas',
+                    'nl' => 'Aanhalingstekens',
+                    'it' => 'Virgolette'
+                ],
+                'lang' => 'es',
+                'characters' => ['«', '»', '“', '”⁠']
+            ],
+            [
+                'label' => [
+                    'en' => 'Quotation Marks',
+                    'de' => 'Anführungszeichen',
+                    'fr' => 'Guillemets',
+                    'es' => 'Comillas',
+                    'nl' => 'Aanhalingstekens',
+                    'it' => 'Virgolette'
+                ],
+                'lang' => 'nl',
+                'characters' => ['“', '”', '‘', '’']
+            ],
+            [
+                'label' => [
+                    'en' => 'Quotation Marks',
+                    'de' => 'Anführungszeichen',
+                    'fr' => 'Guillemets',
+                    'es' => 'Comillas',
+                    'nl' => 'Aanhalingstekens',
+                    'it' => 'Virgolette'
                 ],
                 'lang' => 'de',
                 'characters' => ['„', '“', '‚', '‘']
@@ -25,7 +93,10 @@ Kirby::plugin('philippoehrlein/typo-and-paste', [
                 'label' => [
                     'en' => 'Quotation Marks',
                     'de' => 'Anführungszeichen',
-                    'fr' => 'Guillemets'
+                    'fr' => 'Guillemets',
+                    'es' => 'Comillas',
+                    'nl' => 'Aanhalingstekens',
+                    'it' => 'Virgolette'
                 ],
                 'lang' => 'en',
                 'characters' => ['“', '”', '‘', '’']
@@ -34,7 +105,10 @@ Kirby::plugin('philippoehrlein/typo-and-paste', [
                 'label' => [
                     'en' => 'Dashes',
                     'de' => 'Bindestriche und Gedankenstriche',
-                    'fr' => 'Tirets'
+                    'fr' => 'Tirets',
+                    'es' => 'Guiones',
+                    'nl' => 'Koppeltekens',
+                    'it' => 'Trattini'
                 ],
                 'characters' => ['–', '—', '‐']
             ],
@@ -42,7 +116,10 @@ Kirby::plugin('philippoehrlein/typo-and-paste', [
                 'label' => [
                     'en' => 'Mathematical Symbols',
                     'de' => 'Mathematische Zeichen',
-                    'fr' => 'Symboles Mathématiques'
+                    'fr' => 'Symboles Mathématiques',
+                    'es' => 'Símbolos Matemáticos',
+                    'nl' => 'Wiskundige Symbolen',
+                    'it' => 'Simboli Matematici'
                 ],
                 'characters' => ['±', '×', '÷', '≠', '≤', '≥', '½', '¼', '¾']
             ],
@@ -50,7 +127,10 @@ Kirby::plugin('philippoehrlein/typo-and-paste', [
                 'label' => [
                     'en' => 'Miscellaneous Symbols',
                     'de' => 'Sonstige Zeichen',
-                    'fr' => 'Symboles Divers'
+                    'fr' => 'Symboles Divers',
+                    'es' => 'Símbolos Varios',
+                    'nl' => 'Diverse Symbolen',
+                    'it' => 'Simboli Vari'
                 ],
                 'characters' => ['©', '®', '™', '§', '¶', '°', '†', '‡', '…']
             ]
@@ -62,6 +142,13 @@ Kirby::plugin('philippoehrlein/typo-and-paste', [
             'method' => 'GET',
             'action' => function () {
                 return option('philippoehrlein.typo-and-paste.characters');
+            }
+        ],
+        [
+            'pattern' => 'typo-and-paste/translations',
+            'method' => 'GET',
+            'action' => function () {
+                return option('philippoehrlein.typo-and-paste.translations');
             }
         ]
     ],
