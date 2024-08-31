@@ -96,6 +96,10 @@ export default {
   line-height: var(--button-height);
 }
 
+.tap-dropdown__item:hover {
+  background-color: var(--dropdown-color-hr);
+}
+
 .tap-dropdown__item .k-button-text {
   width: 20px;
   text-align: center;
