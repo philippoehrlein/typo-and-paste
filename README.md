@@ -13,7 +13,6 @@
 - **Multi-Language Support**: Supports various languages for characters and the user interface.
 - **Custom Characters**: Users can define and add their own characters.
 - **Clipboard Copy**: Easily copy characters to the clipboard.
-- **Flexible Configuration**: Option to extend or replace default characters.
 
 ## Installation
 
@@ -58,7 +57,9 @@ You can customize the plugin's translations for different languages:
 
 #### `characters`
 
-Define the characters to be displayed by the plugin. The default characters are provided, but you can extend or override them:
+Define the characters to be displayed by the plugin. The default characters are provided, but you can override them.
+Additonaly you can use 'lang' to display a group of characters depending on the page language.
+
 
 ```php
 'philippoehrlein.typo-and-paste' => [
@@ -79,7 +80,7 @@ Define the characters to be displayed by the plugin. The default characters are 
 
 ### Example Configuration
 
-Here is an example configuration in `site/config/config.php`:
+Here is an example configuration in `site/config/config.php`.
 
 ```php
 return [
