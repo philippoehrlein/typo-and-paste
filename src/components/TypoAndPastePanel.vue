@@ -1,0 +1,74 @@
+<template>
+  <div class="tap-dropdown">
+    <section class="tap-dropdown__section" v-for="(section, index) in config" :key="index">
+      <h3 v-if="section.label">{{ section.label }}</h3>
+      <div class="tap-dropdown__items">
+        <k-button class="tap-dropdown__item" v-for="char in section.characters" :key="char"
+          @click="copyToClipboard(char)">
+          {{ char }}
+        </k-button>
+      </div>
+    </section>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      config: [
+        {
+          label: "Sonderzeichen",
+          characters: ["©", "®", "™", "°", "§", "¶", "†", "‡"]
+        },
+        {
+          label: "Sonderzeichen",
+          characters: ["©", "®", "™", "°", "§", "¶", "†", "‡"]
+        }
+      ]
+    }
+  },
+  methods: {
+    copyToClipboard(character) {
+      navigator.clipboard.writeText(character)
+      this.$store.dispatch("notification/success", `Kopiert: ${character}`)
+    }
+  },
+  mounted() {
+    console.log("SpecialCharacters mounted")
+  }
+}
+</script>
+
+<style scoped>
+.tap-dropdown {
+  width: fit-content;
+  padding: var(--spacing-3);
+}
+
+.tap-dropdown__section {
+  margin-bottom: var(--spacing-3);
+
+  h3 {
+    margin-bottom: var(--spacing-3);
+  }
+}
+
+.tap-dropdown__items {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(var(--button-height), 1fr));
+}
+
+.tap-dropdown__item {
+  display: block;
+  width: var(--button-height);
+  padding-inline: 0;
+  cursor: pointer;
+  line-height: var(--button-height);
+}
+
+.tap-dropdown__item .k-button-text {
+  width: 20px;
+  text-align: center;
+}
+</style>
