@@ -13,7 +13,6 @@
 - **Multi-Language Support**: Supports various languages for characters and the user interface.
 - **Custom Characters**: Users can define and add their own characters.
 - **Clipboard Copy**: Easily copy characters to the clipboard.
-- **Flexible Configuration**: Option to extend or replace default characters.
 
 ## Installation
 
