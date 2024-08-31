@@ -6,6 +6,8 @@
 
 **Typo & Paste** is a Kirby plugin that allows users to easily manage and insert special characters with multi-language support.
 
+![Cover Typo & Paste](typo-and-paste-cover.png)
+
 ## Features
 
 - **Multi-Language Support**: Supports various languages for characters and the user interface.
