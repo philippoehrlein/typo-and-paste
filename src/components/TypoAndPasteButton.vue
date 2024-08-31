@@ -13,7 +13,6 @@
       <typo-and-paste-panel :characters="characters" :languageCode="languageCode" :translations="translations" />
     </k-dropdown-content>
   </div>
-
 </template>
 
 <script>
@@ -45,21 +44,9 @@ export default {
   },
   computed: {
     languageCode() {
-
-      if (this.$panel.language.code) {
-        return this.$panel.language.code
-      }
-
       const userLanguage = this.$panel.user && this.$panel.user.language
-      if (userLanguage) {
-        return userLanguage
-      }
-
-      return 'en'
+      return this.$panel.language.code || userLanguage || 'en'
     }
-  },
-  mounted() {
-    console.log(this.translations);
   }
 }
 </script>

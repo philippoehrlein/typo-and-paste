@@ -56,11 +56,10 @@ export default {
       return this.characters.map(group => {
         let label
 
-        // Überprüfen, ob das Label ein Objekt (für Übersetzungen) oder ein String ist
         if (typeof group.label === 'object' && group.label !== null) {
-          label = group.label[currentLanguage] || group.label['en'] // Fallback auf Englisch
+          label = group.label[currentLanguage] || group.label['en']
         } else {
-          label = group.label // Wenn es ein String ist, direkt verwenden
+          label = group.label
         }
 
         return {
@@ -91,7 +90,7 @@ export default {
 
 .tap-dropdown__items {
   display: grid;
-  grid-template-columns: repeat(6, minmax(var(--button-height), 1fr));
+  grid-template-columns: repeat(8, minmax(var(--button-height), 1fr));
 }
 
 .tap-dropdown__item {

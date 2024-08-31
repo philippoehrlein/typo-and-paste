@@ -13,7 +13,7 @@ h3[data-v-b57aa051] {
 }
 .tap-dropdown__items[data-v-b57aa051] {
   display: grid;
-  grid-template-columns: repeat(6, minmax(var(--button-height), 1fr));
+  grid-template-columns: repeat(8, minmax(var(--button-height), 1fr));
 }
 .tap-dropdown__item[data-v-b57aa051] {
   display: block;

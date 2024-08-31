@@ -125,6 +125,19 @@ Kirby::plugin('philippoehrlein/typo-and-paste', [
             ],
             [
                 'label' => [
+                    'en' => 'Arrows',
+                    'de' => 'Pfeile',
+                    'fr' => 'Flèches',
+                    'es' => 'Flechas',
+                    'nl' => 'Pijlen',
+                    'it' => 'Frecce'
+                ],
+                'characters' => [
+                    '←', '→', '↑', '↓', '↔', '↕', '↖', '↗', '↘', '↙', '↩', '↪', '↺', '↻'
+                ]
+            ],
+            [
+                'label' => [
                     'en' => 'Miscellaneous Symbols',
                     'de' => 'Sonstige Zeichen',
                     'fr' => 'Symboles Divers',
@@ -132,7 +145,7 @@ Kirby::plugin('philippoehrlein/typo-and-paste', [
                     'nl' => 'Diverse Symbolen',
                     'it' => 'Simboli Vari'
                 ],
-                'characters' => ['©', '®', '™', '§', '¶', '°', '†', '‡', '…']
+                'characters' => ['…', '°', '‰', '©', '®', '™', '§', '¶']
             ]
         ]
     ],

@@ -112,18 +112,9 @@
     },
     computed: {
       languageCode() {
-        if (this.$panel.language.code) {
-          return this.$panel.language.code;
-        }
         const userLanguage = this.$panel.user && this.$panel.user.language;
-        if (userLanguage) {
-          return userLanguage;
-        }
-        return "en";
+        return this.$panel.language.code || userLanguage || "en";
       }
-    },
-    mounted() {
-      console.log(this.translations);
     }
   };
   var _sfc_render = function render() {
