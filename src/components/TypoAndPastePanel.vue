@@ -1,41 +1,59 @@
 <template>
   <div class="tap-dropdown">
-    <section class="tap-dropdown__section" v-for="(section, index) in config" :key="index">
-      <h3 v-if="section.label">{{ section.label }}</h3>
-      <div class="tap-dropdown__items">
-        <k-button class="tap-dropdown__item" v-for="char in section.characters" :key="char"
-          @click="copyToClipboard(char)">
-          {{ char }}
-        </k-button>
+    <div v-if="characters && characters.length">
+      <div  v-for="(section, index) in computedCharacters" :key="index">
+        <section class="tap-dropdown__section" v-if="!section.lang || section.lang == languageCode">
+          <h3 v-if="section.label">{{ section.label }}</h3>
+          <div class="tap-dropdown__items">
+            <k-button class="tap-dropdown__item" v-for="char in section.characters" :key="char"
+              @click="copyToClipboard(char)">
+              {{ char }}
+            </k-button>
+          </div>
+        </section>
       </div>
-    </section>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      config: [
-        {
-          label: "Sonderzeichen",
-          characters: ["©", "®", "™", "°", "§", "¶", "†", "‡"]
-        },
-        {
-          label: "Sonderzeichen",
-          characters: ["©", "®", "™", "°", "§", "¶", "†", "‡"]
-        }
-      ]
+  props: {
+    characters: {
+      type: Array,
+      required: true
+    },
+    languageCode: {
+      type: String,
+      default: 'en',
+      required: true
     }
   },
   methods: {
     copyToClipboard(character) {
       navigator.clipboard.writeText(character)
-      this.$store.dispatch("notification/success", `Kopiert: ${character}`)
+      // this.$store.dispatch("notification/success", `Kopiert: ${character}`)
     }
   },
-  mounted() {
-    console.log("SpecialCharacters mounted")
+  computed: {
+    computedCharacters() {
+      const currentLanguage = this.$panel.user.language || 'en';
+      return this.characters.map(group => {
+        let label;
+        
+        // Überprüfen, ob das Label ein Objekt (für Übersetzungen) oder ein String ist
+        if (typeof group.label === 'object' && group.label !== null) {
+          label = group.label[currentLanguage] || group.label['en']; // Fallback auf Englisch
+        } else {
+          label = group.label; // Wenn es ein String ist, direkt verwenden
+        }
+
+        return {
+          ...group,
+          label: label
+        };
+      });
+    }
   }
 }
 </script>
@@ -44,10 +62,12 @@ export default {
 .tap-dropdown {
   width: fit-content;
   padding: var(--spacing-3);
+  max-height: 60vh;
+  overflow-y: auto;
 }
 
 .tap-dropdown__section {
-  margin-bottom: var(--spacing-3);
+  margin-bottom: var(--spacing-6);
 
   h3 {
     margin-bottom: var(--spacing-3);
