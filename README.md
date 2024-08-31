@@ -1,117 +1,129 @@
-# Kirby Pluginkit: Example plugin for Kirby
 
-> Variant "Panel plugin setup"
+# Typo & Paste
 
-This is a boilerplate for a Kirby Panel plugin that can be installed via all three [supported installation methods](https://getkirby.com/docs/guide/plugins/plugin-setup-basic#the-three-plugin-installation-methods).
+![License](https://img.shields.io/badge/license-MIT-green)
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
 
-You can find a list of Pluginkit variants on the [`master` branch](https://github.com/getkirby/pluginkit/tree/master).
+**Typo & Paste** is a Kirby plugin that allows users to easily manage and insert special characters with multi-language support.
 
-****
+## Features
 
-## How to use the Pluginkit
-
-1. Fork this repository
-2. Change the plugin name and description in the `composer.json`
-3. Change the plugin name in the `index.php` and `src/index.js`
-4. Change the license if you don't want to publish under MIT
-5. Add your plugin code to the `index.php` and `src/index.js`
-6. Update this `README` with instructions for your plugin
-
-### Install the development and build setup
-
-We use [kirbyup](https://github.com/johannschopplich/kirbyup) for the development and build setup.
-
-You can start developing directly. kirbyup will be fetched remotely with your first `npm run` command, which may take a short amount of time.
-
-### Development
-
-You can start the dev process with:
-
-```bash
-npm run dev
-```
-
-This will automatically update the `index.js` and `index.css` of your plugin as soon as you make changes.
-Reload the Panel to see your code changes reflected.
-
-With kirbyup 2.0.0+ and Kirby 3.7.4+ you can alternatively use hot module reloading (HMR):
-
-```bash
-npm run serve
-```
-
-This will start a development server that updates the page as soon as you make changes. Some updates are instant, like CSS or Vue template changes, others require a reload of the page, which happens automatically.
-
-> [!NOTE]
-> The live reload functionality requires top level await, [which is only supported in modern browsers](https://caniuse.com/mdn-javascript_operators_await_top_level). If you're developing in older browsers, use `npm run dev` and reload the page manually to see changes.
-
-### Production
-
-As soon as you are happy with your plugin, you should build the final version with:
-
-```bash
-npm run build
-```
-
-This will automatically create a minified and optimized version of your `index.js` and `index.css`
-which you can ship with your plugin.
-
-We have a tutorial on how to build your own plugin based on the Pluginkit [in the Kirby documentation](https://getkirby.com/docs/guide/plugins/plugin-setup-basic).
-
-### Build reproducibility
-
-While kirbyup will stay backwards compatible, exact build reproducibility may be of importance to you. If so, we recommend to target a specific package version, rather than using npx:
-
-```json
-{
-  "scripts": {
-    "dev": "kirbyup src/index.js --watch",
-    "build": "kirbyup src/index.js"
-  },
-  "devDependencies": {
-    "kirbyup": "^3.1.0"
-  }
-}
-```
-
-What follows is an example README for your plugin.
-
-****
+- **Multi-Language Support**: Supports various languages for characters and the user interface.
+- **Custom Characters**: Users can define and add their own characters.
+- **Clipboard Copy**: Easily copy characters to the clipboard.
+- **Flexible Configuration**: Option to extend or replace default characters.
 
 ## Installation
 
-### Download
-
-Download and copy this repository to `/site/plugins/{{ plugin-name }}`.
-
-### Git submodule
-
-```bash
-git submodule add https://github.com/{{ your-name }}/{{ plugin-name }}.git site/plugins/{{ plugin-name }}
-```
-
 ### Composer
 
+Install the plugin via Composer:
+
 ```bash
-composer require {{ your-name }}/{{ plugin-name }}
+composer require philippoehrlein/typo-and-paste
 ```
 
-## Setup
+### Manual Installation
 
-*Additional instructions on how to configure the plugin (e.g. blueprint setup, config options, etc.)*
+1. Download and extract the plugin.
+2. Copy the `typo-and-paste` folder into the `/site/plugins/` directory of your Kirby installation.
 
-## Options
+## Configuration
 
-*Document the options and APIs that this plugin offers*
+### Options
+
+You can configure the plugin in the `site/config/config.php` file. Here are the available options:
+
+#### `translations`
+
+You can customize the plugin's translations for different languages:
+
+```php
+'philippoehrlein.typo-and-paste.translations' => [
+    'translations' => [
+        'en' => [
+            'button_title' => 'Special Characters',
+            'copied_message' => '${character} copied to clipboard',
+        ],
+        'de' => [
+            'button_title' => 'Sonderzeichen',
+            'copied_message' => '${character} in die Zwischenablage kopiert',
+        ],
+        // Additional languages can be added here…
+    ]
+],
+```
+
+#### `characters`
+
+Define the characters to be displayed by the plugin. The default characters are provided, but you can extend or override them:
+
+```php
+'philippoehrlein.typo-and-paste' => [
+    'characters' => [
+        [
+            'label' => [
+                'en' => 'Quotation Marks',
+                'de' => 'Anführungszeichen',
+                // Additional translations can be added here…
+            ],
+            'lang' => 'fr',
+            'characters' => ['«', '»', '‹', '›']
+        ],
+        // Additional characters and categories can be added here…
+    ]
+],
+```
+
+### Example Configuration
+
+Here is an example configuration in `site/config/config.php`:
+
+```php
+return [
+    'philippoehrlein.typo-and-paste.translations' => [
+        'en' => [
+            'button_title' => 'Special Characters',
+            'copied_message' => '${character} copied to clipboard',
+        ],
+        'de' => [
+            'button_title' => 'Sonderzeichen',
+            'copied_message' => '${character} in die Zwischenablage kopiert',
+        ],
+        // Add more languages...
+    ],
+    'philippoehrlein.typo-and-paste.characters' => [
+        [
+            'label' => [
+                'en' => 'Arrows',
+                'de' => 'Pfeile',
+                // Add more languages...
+            ],
+            'characters' => ['←', '→', '↑', '↓']
+        ],
+        // Add more character groups...
+    ],
+];
+```
+
+## Usage
+
+After installation and configuration, the plugin adds a button to the Kirby panel, allowing users to easily insert special characters into their content.
+
+### Insert Characters
+
+1. Open the Kirby panel.
+2. Use the "Special Characters" button to select and insert characters.
+3. Click on a character to copy it to your clipboard.
 
 ## Development
 
-*Add instructions on how to help working on the plugin (e.g. npm setup, Composer dev dependencies, etc.)*
+If you want to contribute to the development of this plugin, follow these steps:
+
+1. Clone the repository.
+2. Install dependencies using Composer.
+3. Make your changes and test them in your Kirby installation.
 
 ## License
 
-MIT
-
-## Credits
-
-- [Your Name](https://github.com/ghost)
+This plugin is open-source and available under the [MIT License](LICENSE.md).
