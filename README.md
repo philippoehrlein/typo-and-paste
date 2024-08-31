@@ -58,7 +58,9 @@ You can customize the plugin's translations for different languages:
 
 #### `characters`
 
-Define the characters to be displayed by the plugin. The default characters are provided, but you can extend or override them:
+Define the characters to be displayed by the plugin. The default characters are provided, but you can override them.
+Additonaly you can use 'lang' to display a group of characters depending on the page language.
+
 
 ```php
 'philippoehrlein.typo-and-paste' => [
@@ -79,7 +81,7 @@ Define the characters to be displayed by the plugin. The default characters are 
 
 ### Example Configuration
 
-Here is an example configuration in `site/config/config.php`:
+Here is an example configuration in `site/config/config.php`.
 
 ```php
 return [
