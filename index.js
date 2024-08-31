@@ -1,5 +1,20 @@
 (function() {
   "use strict";
+  const translationMixin = {
+    methods: {
+      translateString(key, variables = {}) {
+        let languageCode = this.$panel.user.language || "en";
+        if (!this.translations[languageCode]) {
+          languageCode = languageCode.split("_")[0];
+        }
+        const translationsForLanguage = this.translations[languageCode] || this.translations["en"];
+        const translationTemplate = translationsForLanguage[key] || this.translations["en"][key] || key;
+        return translationTemplate.replace(/\$\{(\w+)\}/g, (match, variable) => {
+          return variables[variable] !== void 0 ? variables[variable] : match;
+        });
+      }
+    }
+  };
   function normalizeComponent(scriptExports, render, staticRenderFns, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
     var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
     if (render) {
@@ -16,6 +31,7 @@
     };
   }
   const _sfc_main$1 = {
+    mixins: [translationMixin],
     props: {
       characters: {
         type: Array,
@@ -37,13 +53,6 @@
         window.panel.notification.info({
           message: this.translateString("copied_message", { character }),
           icon: null
-        });
-      },
-      translateString(key, variables = {}) {
-        const languageCode = this.$panel.user.language || "en";
-        const translationTemplate = this.translations[languageCode || "en"][key] || key;
-        return translationTemplate.replace(/\$\{(\w+)\}/g, (match, variable) => {
-          return variables[variable] !== void 0 ? variables[variable] : match;
         });
       }
     },
@@ -88,6 +97,7 @@
   __component__$1.options.__file = "/Users/philipp/Documents/02_Offen/Kirby Plugins/TypoAndPaste/site/plugins/typo-and-paste/src/components/TypoAndPastePanel.vue";
   const TypoAndPastePanel = __component__$1.exports;
   const _sfc_main = {
+    mixins: [translationMixin],
     props: {
       characters: {
         type: Array,
@@ -100,15 +110,6 @@
     },
     components: {
       "typo-and-paste-panel": TypoAndPastePanel
-    },
-    methods: {
-      translateString(key, variables = {}) {
-        const languageCode = this.$panel.user.language || "en";
-        const translationTemplate = this.translations[languageCode || "en"][key] || key;
-        return translationTemplate.replace(/\$\{(\w+)\}/g, (match, variable) => {
-          return variables[variable] !== void 0 ? variables[variable] : match;
-        });
-      }
     },
     computed: {
       languageCode() {

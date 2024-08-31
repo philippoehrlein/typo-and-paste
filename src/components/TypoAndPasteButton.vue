@@ -17,8 +17,10 @@
 
 <script>
 import TypoAndPastePanel from "./TypoAndPastePanel.vue"
+import translationMixin from "../mixins/translationMixin";
 
 export default {
+  mixins: [translationMixin],
   props: {
     characters: {
       type: Array,
@@ -31,16 +33,6 @@ export default {
   },
   components: {
     'typo-and-paste-panel': TypoAndPastePanel
-  },
-  methods: {
-    translateString(key, variables = {}) {
-      const languageCode = this.$panel.user.language || 'en'
-      const translationTemplate = this.translations[languageCode || 'en'][key] || key
-
-      return translationTemplate.replace(/\$\{(\w+)\}/g, (match, variable) => {
-        return variables[variable] !== undefined ? variables[variable] : match
-      })
-    }
   },
   computed: {
     languageCode() {

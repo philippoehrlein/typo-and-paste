@@ -17,7 +17,10 @@
 </template>
 
 <script>
+import translationMixin from "../mixins/translationMixin";
+
 export default {
+  mixins: [translationMixin],
   props: {
     characters: {
       type: Array,
@@ -39,14 +42,6 @@ export default {
       window.panel.notification.info({
         message: this.translateString('copied_message', { character }),
         icon: null
-      })
-    },
-    translateString(key, variables = {}) {
-      const languageCode = this.$panel.user.language || 'en'
-      const translationTemplate = this.translations[languageCode || 'en'][key] || key
-
-      return translationTemplate.replace(/\$\{(\w+)\}/g, (match, variable) => {
-        return variables[variable] !== undefined ? variables[variable] : match
       })
     }
   },

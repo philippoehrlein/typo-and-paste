@@ -1,16 +1,25 @@
 {
-	"name": "getkirby/pluginkit",
-	"description": "Kirby Example Plugin",
-	"license": "MIT",
-	"type": "kirby-plugin",
-	"version": "1.0.0",
-	"authors": [
-		{
-			"name": "Philipp Oehrlein",
-			"email": "github@philippoehrlein.de"
-		}
-	],
-	"require": {
-		"getkirby/composer-installer": "^1.1"
-	}
+  "name": "philippoehrlein/typo-and-paste",
+  "description": "A Kirby plugin for managing and inserting special characters with multi-language support.",
+  "type": "kirby-plugin",
+  "license": "MIT",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "Philipp Oehrlein",
+      "email": "github@philippoehrlein.de"
+    }
+  ],
+  "require": {
+    "getkirby/cms": "^3.0",
+    "getkirby/composer-installer": "^1.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Philippoehrlein\\TypoAndPaste\\": "src/"
+    }
+  },
+  "extra": {
+    "installer-name": "typo-and-paste"
+  }
 }
