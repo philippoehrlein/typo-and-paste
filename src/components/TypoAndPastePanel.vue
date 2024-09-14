@@ -94,6 +94,7 @@ export default {
   padding-inline: 0;
   cursor: pointer;
   line-height: var(--button-height);
+  font-family: system-ui, sans-serif;
 }
 
 .tap-dropdown__item:hover {
