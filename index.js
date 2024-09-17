@@ -1,4 +1,133 @@
-(function(){"use strict";const l={methods:{translateString(n,t={}){let e=this.$panel.user.language||"en";return this.translations[e]||(e=e.split("_")[0]),((this.translations[e]||this.translations.en)[n]||this.translations.en[n]||n).replace(/\$\{(\w+)\}/g,(s,i)=>t[i]!==void 0?t[i]:s)}}};function c(n,t,e,a,r,s,i,v){var o=typeof n=="function"?n.options:n;return t&&(o.render=t,o.staticRenderFns=e,o._compiled=!0),s&&(o._scopeId="data-v-"+s),{exports:n,options:o}}const p={mixins:[l],props:{characters:{type:Array,required:!0},translations:{type:Object,required:!0},languageCode:{type:String,default:"en",required:!0}},methods:{copyToClipboard(n){navigator.clipboard.writeText(n),window.panel.notification.info({message:this.translateString("copied_message",{character:n}),icon:null})}},computed:{computedCharacters(){const n=this.$panel.user.language||"en";return this.characters.map(t=>{let e;return typeof t.label=="object"&&t.label!==null?e=t.label[n]||t.label.en:e=t.label,{...t,label:e}})}}};var d=function(){var t=this,e=t._self._c;return e("div",{staticClass:"tap-dropdown"},[t.characters&&t.characters.length?e("div",t._l(t.computedCharacters,function(a,r){return e("div",{key:r},[!a.lang||a.lang==t.languageCode?e("section",{staticClass:"tap-dropdown__section"},[a.label?e("h3",[t._v(t._s(a.label))]):t._e(),e("div",{staticClass:"tap-dropdown__items"},t._l(a.characters,function(s){return e("k-button",{key:s,staticClass:"tap-dropdown__item",on:{click:function(i){return t.copyToClipboard(s)}}},[t._v(" "+t._s(s)+" ")])}),1)]):t._e()])}),0):t._e()])},u=[],C=c(p,d,u,!1,null,"7ff146f6");const h=C.exports,_={mixins:[l],props:{characters:{type:Array,required:!0},translations:{type:Object,required:!0}},components:{"typo-and-paste-panel":h},computed:{languageCode(){const n=this.$panel.user&&this.$panel.user.language;return this.$panel.language.code||n||"en"}}};var f=function(){var t=this,e=t._self._c;return e("div",[e("k-button",{staticClass:"k-page-view-options",attrs:{dropdown:!0,title:t.translateString("button_title"),variant:"filled",size:"sm",icon:"typo-and-paste"},on:{click:function(a){return t.$refs.typopanel.toggle()}}}),e("k-dropdown-content",{ref:"typopanel",attrs:{"align-x":"end"}},[e("typo-and-paste-panel",{attrs:{characters:t.characters,languageCode:t.languageCode,translations:t.translations}})],1)],1)},g=[],m=c(_,f,g,!1,null,null);const y=m.exports;panel.plugin("philippoehrlein/typo-and-paste",{icons:{"typo-and-paste":`
+(function() {
+  "use strict";
+  function normalizeComponent(scriptExports, render, staticRenderFns, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
+    var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
+    if (render) {
+      options.render = render;
+      options.staticRenderFns = staticRenderFns;
+      options._compiled = true;
+    }
+    if (scopeId) {
+      options._scopeId = "data-v-" + scopeId;
+    }
+    return {
+      exports: scriptExports,
+      options
+    };
+  }
+  const _sfc_main$1 = {
+    props: {
+      characters: {
+        type: Array,
+        required: true
+      },
+      translations: {
+        type: Object,
+        required: true
+      },
+      languageCode: {
+        type: String,
+        default: "en",
+        required: true
+      }
+    },
+    methods: {
+      copyToClipboard(character) {
+        var _a;
+        navigator.clipboard.writeText(character);
+        window.panel.notification.info({
+          message: ((_a = this.translations[this.languageCode]) == null ? void 0 : _a.copied_message.replace("${character}", character)) || `${character} copied to clipboard`,
+          icon: null
+        });
+      }
+    },
+    computed: {
+      computedCharacters() {
+        const currentLanguage = this.$panel.user.language || "en";
+        return this.characters.map((group) => {
+          let label;
+          if (typeof group.label === "object" && group.label !== null) {
+            label = group.label[currentLanguage] || group.label["en"];
+          } else {
+            label = group.label;
+          }
+          return {
+            ...group,
+            label
+          };
+        });
+      }
+    }
+  };
+  var _sfc_render$1 = function render() {
+    var _vm = this, _c = _vm._self._c;
+    return _c("div", { staticClass: "tap-dropdown" }, [_vm.characters && _vm.characters.length ? _c("div", _vm._l(_vm.computedCharacters, function(section, index) {
+      return _c("div", { key: index }, [!section.lang || section.lang == _vm.languageCode ? _c("section", { staticClass: "tap-dropdown__section" }, [section.label ? _c("h3", [_vm._v(_vm._s(section.label))]) : _vm._e(), _c("div", { staticClass: "tap-dropdown__items" }, _vm._l(section.characters, function(char) {
+        return _c("k-button", { key: char, staticClass: "tap-dropdown__item", on: { "click": function($event) {
+          return _vm.copyToClipboard(char);
+        } } }, [_vm._v(" " + _vm._s(char) + " ")]);
+      }), 1)]) : _vm._e()]);
+    }), 0) : _vm._e()]);
+  };
+  var _sfc_staticRenderFns$1 = [];
+  _sfc_render$1._withStripped = true;
+  var __component__$1 = /* @__PURE__ */ normalizeComponent(
+    _sfc_main$1,
+    _sfc_render$1,
+    _sfc_staticRenderFns$1,
+    false,
+    null,
+    "b57aa051"
+  );
+  __component__$1.options.__file = "/Users/philipp/Documents/02_Offen/Kirby Plugins/TypoAndPaste/site/plugins/typo-and-paste/src/components/TypoAndPastePanel.vue";
+  const TypoAndPastePanel = __component__$1.exports;
+  const _sfc_main = {
+    props: {
+      languageCode: {
+        type: String,
+        required: true
+      },
+      characters: {
+        type: Array,
+        required: true
+      },
+      translations: {
+        type: Object,
+        required: true
+      }
+    },
+    components: {
+      "typo-and-paste-panel": TypoAndPastePanel
+    },
+    computed: {
+      languageCode() {
+        const userLanguage = this.$panel.user && this.$panel.user.language;
+        return this.$panel.language.code || userLanguage || "en";
+      }
+    }
+  };
+  var _sfc_render = function render() {
+    var _a;
+    var _vm = this, _c = _vm._self._c;
+    return _c("div", [_c("k-button", { staticClass: "k-page-view-options", attrs: { "dropdown": true, "title": ((_a = _vm.translations[_vm.languageCode]) == null ? void 0 : _a.button_title) || "Special Characters", "variant": "filled", "size": "sm", "icon": "typo-and-paste" }, on: { "click": function($event) {
+      return _vm.$refs.typopanel.toggle();
+    } } }), _c("k-dropdown-content", { ref: "typopanel", attrs: { "align-x": "end" } }, [_c("typo-and-paste-panel", { attrs: { "characters": _vm.characters || [], "languageCode": _vm.languageCode, "translations": _vm.translations || {} } })], 1)], 1);
+  };
+  var _sfc_staticRenderFns = [];
+  _sfc_render._withStripped = true;
+  var __component__ = /* @__PURE__ */ normalizeComponent(
+    _sfc_main,
+    _sfc_render,
+    _sfc_staticRenderFns,
+    false,
+    null,
+    null
+  );
+  __component__.options.__file = "/Users/philipp/Documents/02_Offen/Kirby Plugins/TypoAndPaste/site/plugins/typo-and-paste/src/components/TypoAndPasteButton.vue";
+  const TypoAndPasteButton = __component__.exports;
+  panel.plugin("philippoehrlein/typo-and-paste", {
+    icons: {
+      "typo-and-paste": `
       <path d="M10.931 22C9.57512 22 8.37089 21.7948 7.31831 21.3845C6.28357 20.9563 5.47183 20.3498 
       4.8831 19.5648C4.29437 18.7798 4 17.8432 4 16.7549C4 15.5239 4.31221 14.5427 4.93662 13.8113C5.56103 
       13.062 6.33709 12.5446 7.26479 12.2592V12.1521C6.46197 11.7596 5.78404 11.2512 5.23099 10.6268C4.69577 
@@ -17,4 +146,47 @@
       14.7577 18.985 15.0789 18.4676C15.4 17.9502 15.5606 17.3169 15.5606 16.5676V11.3761H20.1901V13.3563H17.9155
       V16.4873C17.9155 17.6648 17.6479 18.6639 17.1127 19.4845C16.5953 20.3052 15.8192 20.9296 14.7845 
       21.3577C13.7498 21.7859 12.4653 22 10.931 22Z"/>
-    `},components:{"typo-and-paste-button":y},data(){return{characters:[]}},use:[function(n){n.mixin({mounted(){if(this.$options.name==="k-header"){const t=this.$children.find(e=>e.$options.name==="k-button-group");t&&Promise.all([fetch("/typo-and-paste/characters").then(e=>e.json()),fetch("/typo-and-paste/translations").then(e=>e.json())]).then(([e,a])=>{this.characters=e,this.translations=a;const r=new n({render:s=>s("typo-and-paste-button",{props:{characters:this.characters,translations:this.translations}})}).$mount();t.$el.prepend(r.$el),this.$forceUpdate()}).catch(e=>{console.error("Error fetching characters or translations:",e)})}}})}]})})();
+    `
+    },
+    components: {
+      "typo-and-paste-button": TypoAndPasteButton
+    },
+    data() {
+      return {
+        characters: []
+      };
+    },
+    use: [
+      function(Vue) {
+        Vue.mixin({
+          async mounted() {
+            if (this.$options.name === "k-header") {
+              const buttonGroup = this.$children.find(
+                (child) => child.$options.name === "k-button-group"
+              );
+              if (buttonGroup) {
+                try {
+                  const response = await fetch("/typo-and-paste/characters");
+                  const charactersData = await response.json();
+                  this.characters = charactersData;
+                  const button = new Vue({
+                    render: (h) => h("typo-and-paste-button", {
+                      props: {
+                        characters: this.characters || [],
+                        translations: this.translations || {}
+                      }
+                    })
+                  }).$mount();
+                  buttonGroup.$el.prepend(button.$el);
+                  this.$forceUpdate();
+                } catch (error) {
+                  console.error("Error fetching characters:", error);
+                }
+              }
+            }
+          }
+        });
+      }
+    ]
+  });
+})();

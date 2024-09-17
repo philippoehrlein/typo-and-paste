@@ -2,7 +2,7 @@
   <div>
     <k-button 
       :dropdown="true" 
-      :title="translateString('button_title')"
+      :title="translations[languageCode]?.button_title || 'Special Characters'"
       variant="filled" 
       size="sm" 
       icon="typo-and-paste" 
@@ -10,18 +10,20 @@
       @click="$refs.typopanel.toggle()">
     </k-button>
     <k-dropdown-content ref="typopanel" align-x="end">
-      <typo-and-paste-panel :characters="characters" :languageCode="languageCode" :translations="translations" />
+      <typo-and-paste-panel :characters="characters || []" :languageCode="languageCode" :translations="translations || {}" />
     </k-dropdown-content>
   </div>
 </template>
 
 <script>
 import TypoAndPastePanel from "./TypoAndPastePanel.vue"
-import translationMixin from "../mixins/translationMixin";
 
 export default {
-  mixins: [translationMixin],
   props: {
+    languageCode: {
+      type: String,
+      required: true
+    },
     characters: {
       type: Array,
       required: true

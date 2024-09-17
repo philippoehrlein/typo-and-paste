@@ -2,17 +2,19 @@
 
 ## Supported Versions
 
-*Use this section to tell people about which versions of your project are currently being supported with security updates.*
+The following versions of the Typo & Paste plugin are currently supported with security updates:
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 5.1.x   | :x: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| 1.0.x   | :white_check_mark: |
+| < 1.0   | :x:                |
 
 ## Reporting a Vulnerability
 
-*Use this section to tell people how to report a vulnerability.*
+If you discover a security vulnerability in Typo & Paste, please report it responsibly by sending an email to github@philippoehrlein.com.
 
-*Tell them where to go, how often they can expect to get an update on a reported vulnerability, what to expect if the vulnerability is accepted or declined, etc.*
+Please include as many details as possible in your report, including:
+
+1. The nature of the vulnerability
+2. Steps to reproduce
+3. Potential impact

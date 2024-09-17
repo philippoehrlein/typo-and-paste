@@ -34,37 +34,33 @@ panel.plugin("philippoehrlein/typo-and-paste", {
   use: [
     function (Vue) {
       Vue.mixin({
-        mounted() {
+        async mounted() {
           if (this.$options.name === 'k-header') {
             const buttonGroup = this.$children.find(
               (child) => child.$options.name === 'k-button-group'
             );
 
             if (buttonGroup) {
-              Promise.all([
-                fetch('/typo-and-paste/characters').then((response) => response.json()),
-                fetch('/typo-and-paste/translations').then((response) => response.json())
-              ])
-                .then(([charactersData, translationsData]) => {
-                  this.characters = charactersData;
-                  this.translations = translationsData;
+              try {
+                const response = await fetch('/typo-and-paste/characters');
+                const charactersData = await response.json();
+                this.characters = charactersData;
 
-                  const button = new Vue({
-                    render: (h) =>
-                      h('typo-and-paste-button', {
-                        props: { 
-                          characters: this.characters, 
-                          translations: this.translations 
-                        },
-                      }),
-                  }).$mount();
+                const button = new Vue({
+                  render: (h) =>
+                    h('typo-and-paste-button', {
+                      props: { 
+                        characters: this.characters || [], 
+                        translations: this.translations || {},
+                      },
+                    }),
+                }).$mount();
 
-                  buttonGroup.$el.prepend(button.$el);
-                  this.$forceUpdate();
-                })
-                .catch((error) => {
-                  console.error('Error fetching characters or translations:', error);
-                });
+                buttonGroup.$el.prepend(button.$el);
+                this.$forceUpdate();
+              } catch (error) {
+                console.error('Error fetching characters:', error);
+              }
             }
           }
         },

@@ -17,10 +17,8 @@
 </template>
 
 <script>
-import translationMixin from "../mixins/translationMixin";
 
 export default {
-  mixins: [translationMixin],
   props: {
     characters: {
       type: Array,
@@ -40,7 +38,7 @@ export default {
     copyToClipboard(character) {
       navigator.clipboard.writeText(character)
       window.panel.notification.info({
-        message: this.translateString('copied_message', { character }),
+        message: this.translations[this.languageCode]?.copied_message.replace('${character}', character) || `${character} copied to clipboard`,
         icon: null
       })
     }
