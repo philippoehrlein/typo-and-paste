@@ -151,12 +151,12 @@ Kirby::plugin('philippoehrlein/typo-and-paste', [
     ],
     'routes' => [
         [
-            'pattern' => 'typo-and-paste/characters',
+            'pattern' => '/typo-and-paste/characters',
             'method' => 'GET',
             'action' => function () {
                 return option('philippoehrlein.typo-and-paste.characters');
             }
         ]
     ],
-    'version' => '1.0.2',
+    'version' => '1.0.3',
 ]);

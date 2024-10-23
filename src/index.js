@@ -42,7 +42,8 @@ panel.plugin("philippoehrlein/typo-and-paste", {
 
             if (buttonGroup) {
               try {
-                const response = await fetch('/typo-and-paste/characters');
+                const basePath = window.location.pathname.split('/panel')[0];
+                const response = await fetch(`${basePath}/typo-and-paste/characters`);
                 const charactersData = await response.json();
                 this.characters = charactersData;
 
