@@ -17,17 +17,38 @@
 </template>
 
 <script>
-
+/**
+ * @component TypoAndPastePanel
+ * @author [@philippoehrlein](https://github.com/philippoehrlein)
+ * @description A dropdown panel with special characters.
+ * @props {Array} characters - An array of characters to display in the panel.
+ * @props {Object} translations - An object containing translations for the panel.
+ * @props {String} languageCode - The language code of the current user.
+ * @example
+ * <typo-and-paste-panel :characters="characters" :translations="translations" :languageCode="languageCode" />
+ */
 export default {
   props: {
+    /**
+     * An array of characters to display in the panel.
+     * @type {Array<{label: {[key: string]: string}, lang?: string, characters: string[]}>}
+     */
     characters: {
       type: Array,
       required: true
     },
+    /**
+     * An object containing translations for the panel.
+     * @type {Object}
+     */
     translations: {
       type: Object,
       required: true
     },
+    /**
+     * The language code of the current user.
+     * @type {String}
+     */
     languageCode: {
       type: String,
       default: 'en',
@@ -35,6 +56,10 @@ export default {
     }
   },
   methods: {
+    /**
+     * Copies a character to the clipboard and shows a notification.
+     * @param {String} character - The character to copy.
+     */
     copyToClipboard(character) {
       navigator.clipboard.writeText(character)
       window.panel.notification.info({
@@ -44,6 +69,10 @@ export default {
     }
   },
   computed: {
+    /**
+     * Computes the characters to display in the panel.
+     * @returns {Array<{label: string, lang?: string, characters: string[]}>}
+     */
     computedCharacters() {
       const currentLanguage = this.$panel.user.language || 'en'
       return this.characters.map(group => {

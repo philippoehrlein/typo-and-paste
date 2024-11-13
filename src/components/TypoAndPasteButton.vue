@@ -18,16 +18,38 @@
 <script>
 import TypoAndPastePanel from "./TypoAndPastePanel.vue"
 
+/**
+ * @component TypoAndPasteButton
+ * @author [@philippoehrlein](https://github.com/philippoehrlein)
+ * @description A button that opens a dropdown with a panel of special characters.
+ * @props {String} languageCode - The language code of the current user.
+ * @props {Array} characters - An array of characters to display in the panel.
+ * @props {Object} translations - An object containing translations for the button and panel.
+ * @example
+ * <typo-and-paste-button :characters="characters" :translations="translations" />
+ */
 export default {
   props: {
+    /**
+     * The language code of the current user.
+     * @type {String}
+     */
     languageCode: {
       type: String,
       required: true
     },
+    /**
+     * An array of characters to display in the panel.
+     * @type {Array<{label: {[key: string]: string}, lang?: string, characters: string[]}>}
+     */
     characters: {
       type: Array,
       required: true
     },
+    /**
+     * An object containing translations for the button and panel.
+     * @type {Object}
+     */
     translations: {
       type: Object,
       required: true

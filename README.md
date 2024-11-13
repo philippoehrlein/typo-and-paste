@@ -2,7 +2,7 @@
 # Typo & Paste
 
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Version](https://img.shields.io/badge/version-1.0.3-blue)
+![Version](https://img.shields.io/badge/version-1.1.0-blue)
 
 **Typo & Paste** is a Kirby plugin that allows users to easily manage and insert special characters with multi-language support.
 
@@ -13,6 +13,10 @@
 - **Multi-Language Support**: Supports various languages for characters and the user interface.
 - **Custom Characters**: Users can define and add their own characters.
 - **Clipboard Copy**: Easily copy characters to the clipboard.
+
+## Compatibility
+
+This plugin is compatible with Kirby 4 and 5.
 
 ## Installation
 
@@ -30,6 +34,38 @@ composer require philippoehrlein/typo-and-paste
 2. Copy the `typo-and-paste` folder into the `/site/plugins/` directory of your Kirby installation.
 
 ## Configuration
+
+### Adding the Button
+
+In Kirby 5, the **Typo & Paste** button can be customized to appear in specific views of the panel toolbar by configuring view buttons. In Kirby 4, the button is automatically visible in all panel views without any additional configuration.
+
+To enable the **Typo & Paste** button in the Kirby panel, you can configure it in two ways:
+
+1. **Blueprint Configuration**: Add the button directly to the blueprint:
+
+   ```yaml
+   buttons:
+     - typo-and-paste
+     - preview
+     - settings
+     - languages
+     - status
+   ```
+
+2. **Config File Configuration**: Add the button configuration globally in your `site/config/config.php`:
+
+   ```php
+   return [
+       'panel' => [
+           'viewButtons' => [
+               // Page view
+               'page' => ['typo-and-paste', 'preview', 'settings', 'languages', 'status'],
+               // Site view
+               'site' => ['typo-and-paste', 'preview', 'languages']
+           ]
+       ]
+   ];
+   ```
 
 ### Options
 
@@ -111,6 +147,25 @@ return [
     ]
 ];
 ```
+
+## AI Support
+
+This plugin includes an AI-friendly schema definition (`AI-SCHEMA.md`) to help generate configurations using AI language models. The schema provides:
+
+- Structured format for character group definitions
+- Clear property descriptions and requirements
+- Guidelines for creating meaningful character groups
+- Examples of proper configuration
+
+### Using AI for Configuration
+
+1. Share the content of `AI-SCHEMA.md` with your AI assistant
+2. Describe your specific use case and requirements
+3. The AI will generate a configuration following the schema
+4. Review and adjust the generated configuration as needed
+
+Example prompt:
+"Using the schema, create a configuration for a blog about [your topic]. The content will be in [languages] and editors work in [languages]."
 
 ## Usage
 
