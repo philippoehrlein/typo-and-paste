@@ -101,7 +101,7 @@ export default {
             "${character}",
             character
           ) || `${character} copied to clipboard`,
-        icon: null,
+        icon: undefined,
       });
     },
   },

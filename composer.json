@@ -13,7 +13,7 @@
   ],
   "require": {
     "php": ">=8.1.0",
-    "getkirby/composer-installer": "^1.1"
+    "getkirby/composer-installer": "^1.2"
   },
   "require-dev": {
     "getkirby/cms": "^4.0 || ^5.0"
@@ -22,6 +22,12 @@
     "psr-4": {
       "Philippoehrlein\\TypoAndPaste\\": "src/"
     }
+  },
+  "scripts": {
+    "dev": [
+      "Composer\\Config::disableProcessTimeout",
+      "@php -S localhost:8000 -t playground/public vendor/getkirby/cms/router.php"
+    ]
   },
   "config": {
     "allow-plugins": {
