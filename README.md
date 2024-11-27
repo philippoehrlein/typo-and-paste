@@ -1,7 +1,7 @@
 # Typo & Paste
 
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Version](https://img.shields.io/badge/version-2.0.0-blue)
+![Version](https://img.shields.io/badge/version-1.2.1-blue)
 
 **Typo & Paste** is a Kirby plugin that allows users to easily manage and insert special characters with multi-language support.
 
@@ -55,14 +55,14 @@ To enable the **Typo & Paste** button in the Kirby Panel, you can configure it i
 
    ```php
    return [
-       'panel' => [
-           'viewButtons' => [
-               // Page view
-               'page' => ['typo-and-paste', 'preview', 'settings', 'languages', 'status'],
-               // Site view
-               'site' => ['typo-and-paste', 'preview', 'languages']
-           ]
+     'panel' => [
+       'viewButtons' => [
+         // Page view
+         'page' => ['typo-and-paste', 'preview', 'settings', 'languages', 'status'],
+         // Site view
+         'site' => ['typo-and-paste', 'preview', 'languages']
        ]
+     ]
    ];
    ```
 
@@ -81,20 +81,20 @@ The following example shows how to add a group of French quotation marks:
 ```php
 // site/config/config.php
 return [
-    'philippoehrlein.typo-and-paste' => [
-        'characters' => [
-            [
-                'label' => [
-                    'en' => 'Quotation Marks',
-                    'de' => 'Anführungszeichen',
-                    // Additional translations can be added here...
-                ],
-                'lang' => 'fr',
-                'characters' => ['«', '»', '‹', '›']
-            ],
-            // Additional characters and categories can be added here...
-        ]
+  'philippoehrlein.typo-and-paste' => [
+    'characters' => [
+      [
+        'label' => [
+          'en' => 'Quotation Marks',
+          'de' => 'Anführungszeichen',
+          // Additional translations can be added here...
+        ],
+        'lang' => 'fr',
+        'characters' => ['«', '»', '‹', '›']
+      ],
+      // Additional characters and categories can be added here...
     ]
+  ]
 ];
 ```
 
