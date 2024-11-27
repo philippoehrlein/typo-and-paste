@@ -1,1 +1,6 @@
 title: Page
+
+buttons:
+  - typo-and-paste
+  - preview
+  - settings

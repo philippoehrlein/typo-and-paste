@@ -1,4 +1,3 @@
-
 # Typo & Paste
 
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -6,7 +5,7 @@
 
 **Typo & Paste** is a Kirby plugin that allows users to easily manage and insert special characters with multi-language support.
 
-![Cover Typo & Paste](typo-and-paste-cover.png)
+![Cover Typo & Paste](.github/typo-and-paste-cover.png)
 
 ## Features
 
@@ -95,7 +94,6 @@ You can customize the plugin's translations for different languages:
 
 Define the characters to be displayed by the plugin. The default characters are provided, but you can override them.
 Additonaly you can use 'lang' to display a group of characters depending on the page language.
-
 
 ```php
 'philippoehrlein.typo-and-paste' => [
@@ -187,4 +185,4 @@ If you want to contribute to the development of this plugin, follow these steps:
 
 ## License
 
-This plugin is open-source and available under the [MIT License](LICENSE.md).
+This plugin is open-source and available under the [MIT License](LICENSE).

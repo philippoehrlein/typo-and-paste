@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import { isObject } from "../utils/helpers";
+
 /**
  * @component TypoAndPastePanel
  * @author [@philippoehrlein](https://github.com/philippoehrlein)
@@ -34,7 +36,11 @@
  * @props {object} translations - An object containing translations for the panel.
  * @props {string} languageCode - The language code of the current user.
  * @example
- * <typo-and-paste-panel :characters="characters" :translations="translations" :languageCode="languageCode" />
+ * <TypoAndPastePanel
+ *   :characters="characters"
+ *   :translations="translations"
+ *   :language-code="languageCode"
+ * />
  */
 export default {
   props: {
@@ -74,7 +80,7 @@ export default {
       return this.characters.map((group) => {
         let label;
 
-        if (typeof group.label === "object" && group.label !== null) {
+        if (isObject(group.label)) {
           label = group.label[currentLanguage] || group.label.en;
         } else {
           label = group.label;
