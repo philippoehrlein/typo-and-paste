@@ -26,26 +26,25 @@ window.panel.plugin("philippoehrlein/typo-and-paste", {
                   (child) => child.$options.name === "k-button-group"
                 );
 
-                if (buttonGroup) {
-                  try {
-                    const charactersData = await loadCharacters();
-                    this.characters = charactersData;
+                if (!buttonGroup) return;
 
-                    const button = new Vue({
-                      render: (h) =>
-                        h("typo-and-paste-button", {
-                          props: {
-                            characters: this.characters || [],
-                            translations: this.translations || {},
-                          },
-                        }),
-                    }).$mount();
+                try {
+                  this.characters = await loadCharacters();
 
-                    buttonGroup.$el.prepend(button.$el);
-                    this.$forceUpdate();
-                  } catch (error) {
-                    console.error("Error loading characters:", error);
-                  }
+                  const button = new Vue({
+                    render: (h) =>
+                      h("typo-and-paste-button", {
+                        props: {
+                          characters: this.characters || [],
+                          translations: this.translations || {},
+                        },
+                      }),
+                  }).$mount();
+
+                  buttonGroup.$el.prepend(button.$el);
+                  this.$forceUpdate();
+                } catch (error) {
+                  console.error("Error loading characters:", error);
                 }
               }
             },
