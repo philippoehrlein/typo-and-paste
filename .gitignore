@@ -3,3 +3,4 @@
 
 # Vendor files
 /node_modules
+/vendor

@@ -23,7 +23,13 @@
       "Philippoehrlein\\TypoAndPaste\\": "src/"
     }
   },
+  "config": {
+    "allow-plugins": {
+      "getkirby/composer-installer": true
+    }
+  },
   "extra": {
+    "kirby-cms-path": false,
     "installer-name": "typo-and-paste"
   }
 }
