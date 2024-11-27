@@ -36,9 +36,9 @@ composer require philippoehrlein/typo-and-paste
 
 ### Adding the Button
 
-In Kirby 5, the **Typo & Paste** button can be customized to appear in specific views of the panel toolbar by configuring view buttons. In Kirby 4, the button is automatically visible in all panel views without any additional configuration.
+In Kirby 5, the **Typo & Paste** button can be customized to appear in specific views of the Panel toolbar by configuring view buttons. In Kirby 4, the button is automatically visible in all Panel views without any additional configuration.
 
-To enable the **Typo & Paste** button in the Kirby panel, you can configure it in two ways:
+To enable the **Typo & Paste** button in the Kirby Panel, you can configure it in two ways:
 
 1. **Blueprint Configuration**: Add the button directly to the blueprint:
 
@@ -68,68 +68,20 @@ To enable the **Typo & Paste** button in the Kirby panel, you can configure it i
 
 ### Options
 
-You can configure the plugin in the `site/config/config.php` file. Here are the available options:
-
-#### `translations`
-
-You can customize the plugin's translations for different languages:
-
-```php
-'philippoehrlein.typo-and-paste.translations' => [
-    'translations' => [
-        'en' => [
-            'button_title' => 'Special Characters',
-            'copied_message' => '${character} copied to clipboard',
-        ],
-        'de' => [
-            'button_title' => 'Sonderzeichen',
-            'copied_message' => '${character} in die Zwischenablage kopiert',
-        ],
-        // Additional languages can be added here…
-    ]
-],
-```
+You can configure the plugin in the `site/config/config.php` file. The following options are available:
 
 #### `characters`
 
-Define the characters to be displayed by the plugin. The default characters are provided, but you can override them.
-Additonaly you can use 'lang' to display a group of characters depending on the page language.
+Define the characters to be displayed by the plugin. The plugin provides [default characters](./config/characters.php), which you can customize or extend.
+
+Additonaly you can use `lang` to display a group of characters depending on the page language.
+
+The following example shows how to add a group of French quotation marks:
 
 ```php
-'philippoehrlein.typo-and-paste' => [
-    'characters' => [
-        [
-            'label' => [
-                'en' => 'Quotation Marks',
-                'de' => 'Anführungszeichen',
-                // Additional translations can be added here…
-            ],
-            'lang' => 'fr',
-            'characters' => ['«', '»', '‹', '›']
-        ],
-        // Additional characters and categories can be added here…
-    ]
-],
-```
-
-### Example Configuration
-
-Here is an example configuration in `site/config/config.php`.
-
-```php
+// site/config/config.php
 return [
     'philippoehrlein.typo-and-paste' => [
-        'translations' => [
-            'en' => [
-                'button_title' => 'Special Characters',
-                'copied_message' => '${character} copied to clipboard',
-            ],
-            'de' => [
-                'button_title' => 'Sonderzeichen',
-                'copied_message' => '${character} in die Zwischenablage kopiert',
-            ],
-            // Additional languages can be added here...
-        ],
         'characters' => [
             [
                 'label' => [
@@ -143,6 +95,24 @@ return [
             // Additional characters and categories can be added here...
         ]
     ]
+];
+```
+
+## Translations
+
+You can customize the plugin's translations for different languages by using Kirby's multi-language support. To add or override translations, create a language file in the `site/languages` directory and define the translations for the plugin:
+
+```php
+// site/languages/en.php
+return [
+  'code' => 'en',
+  'default' => true,
+  // Other language configuration...
+
+  'translations' => [
+    'philippoehrlein.typo-and-paste.buttonTitle' => 'Special Characters',
+    'philippoehrlein.typo-and-paste.copiedMessage' => '{character} copied to clipboard',
+  ]
 ];
 ```
 
@@ -162,16 +132,17 @@ This plugin includes an AI-friendly schema definition (`AI-SCHEMA.md`) to help g
 3. The AI will generate a configuration following the schema
 4. Review and adjust the generated configuration as needed
 
-Example prompt:
-"Using the schema, create a configuration for a blog about [your topic]. The content will be in [languages] and editors work in [languages]."
+**Example prompt**:
+
+> Using the schema, create a configuration for a blog about [your topic]. The content will be in [languages] and editors work in [languages].
 
 ## Usage
 
-After installation and configuration, the plugin adds a button to the Kirby panel, allowing users to easily insert special characters into their content.
+After installation and configuration, the plugin adds a button to the Kirby Panel, allowing users to easily insert special characters into their content.
 
 ### Insert Characters
 
-1. Open the Kirby panel.
+1. Open the Kirby Panel.
 2. Use the "Special Characters" button to select and insert characters.
 3. Click on a character to copy it to your clipboard.
 
@@ -181,7 +152,8 @@ If you want to contribute to the development of this plugin, follow these steps:
 
 1. Clone the repository.
 2. Install dependencies using Composer.
-3. Make your changes and test them in your Kirby installation.
+3. Run the playground by executing `composer dev`.
+4. Open the playground in your browser: [http://localhost:8000](http://localhost:8000).
 
 ## License
 

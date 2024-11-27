@@ -2,27 +2,27 @@
 
 return [
   'en' => [
-      'button_title' => 'Special Characters',
-      'copied_message' => '${character} copied to clipboard',
+    'philippoehrlein.typo-and-paste.buttonTitle' => 'Special Characters',
+    'philippoehrlein.typo-and-paste.copiedMessage' => '{character} copied to clipboard',
   ],
   'de' => [
-      'button_title' => 'Sonderzeichen',
-      'copied_message' => '${character} in die Zwischenablage kopiert',
+    'philippoehrlein.typo-and-paste.buttonTitle' => 'Sonderzeichen',
+    'philippoehrlein.typo-and-paste.copiedMessage' => '{character} in die Zwischenablage kopiert',
   ],
   'fr' => [
-      'button_title' => 'Caractères Spéciaux',
-      'copied_message' => '${character} copié dans le presse-papiers',
+    'philippoehrlein.typo-and-paste.buttonTitle' => 'Caractères Spéciaux',
+    'philippoehrlein.typo-and-paste.copiedMessage' => '{character} copié dans le presse-papiers',
   ],
   'es' => [
-      'button_title' => 'Caracteres Especiales',
-      'copied_message' => '${character} copiado al portapapeles',
+    'philippoehrlein.typo-and-paste.buttonTitle' => 'Caracteres Especiales',
+    'philippoehrlein.typo-and-paste.copiedMessage' => '{character} copiado al portapapeles',
   ],
   'nl' => [
-      'button_title' => 'Speciale Tekens',
-      'copied_message' => '${character} gekopieerd naar klembord',
+    'philippoehrlein.typo-and-paste.buttonTitle' => 'Speciale Tekens',
+    'philippoehrlein.typo-and-paste.copiedMessage' => '{character} gekopieerd naar klembord',
   ],
   'it' => [
-      'button_title' => 'Caratteri Speciali',
-      'copied_message' => '${character} copiato negli appunti',
+    'philippoehrlein.typo-and-paste.buttonTitle' => 'Caratteri Speciali',
+    'philippoehrlein.typo-and-paste.copiedMessage' => '{character} copiato negli appunti',
   ]
 ];

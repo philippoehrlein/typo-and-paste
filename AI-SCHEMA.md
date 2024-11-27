@@ -4,6 +4,7 @@ Schema for configuring special characters in the Typo & Paste plugin.
 
 ## Basic Structure
 
+```php
 return [
     'philippoehrlein.typo-and-paste' => [
         'characters' => [
@@ -11,9 +12,11 @@ return [
         ]
     ]
 ];
+```
 
 ## Character Group Schema
 
+```php
 [
     'label' => [
         'en' => 'Group Name in English',
@@ -23,24 +26,28 @@ return [
     'lang' => 'optional-language-code',
     'characters' => ['char1', 'char2', 'char3']
 ]
+```
 
 ## Properties
 
 ### label (required)
+
 - Type: Array
 - Description: Multi-language labels for the character group
 - Format: Array of language codes with corresponding labels
 
 ### lang (optional)
+
 - Type: String
-- Description: Language code to show this character group only when editing content in that specific language. This refers to the page language being edited, not the panel interface language of the editor
+- Description: Language code to show this character group only when editing content in that specific language. This refers to the page language being edited, not the Kirby Panel interface language of the editor
 - Note: If omitted, the group will be shown for all content languages
-- Example usage: 
-  - 'de' shows German quotation marks („") only when editing German content
-  - 'en' shows English quotation marks ("") only when editing English content
+- Example usage:
+  - `de` shows German quotation marks („") only when editing German content
+  - `en` shows English quotation marks ("") only when editing English content
   - Not related to the editor's interface language preference
 
 ### characters (required)
+
 - Type: Array
 - Description: List of special characters
 - Format: Array of strings, each containing a single character or symbol
@@ -58,6 +65,7 @@ When creating character groups, consider the following:
 
 ## Example Configuration
 
+```php
 [
     'label' => [
         'en' => 'Mathematical Symbols',
@@ -66,3 +74,4 @@ When creating character groups, consider the following:
     ],
     'characters' => ['±', '×', '÷', '≠', '≤', '≥']
 ]
+```
