@@ -3,7 +3,7 @@
   "description": "A Kirby plugin for managing and inserting special characters with multi-language support.",
   "type": "kirby-plugin",
   "license": "MIT",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "homepage": "https://github.com/philippoehrlein/typo-and-paste",
   "authors": [
     {
