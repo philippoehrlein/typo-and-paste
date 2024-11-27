@@ -1,9 +1,10 @@
 <template>
-  <div class="tap-dropdown">
-    <div v-if="characters && characters.length">
-      <div v-for="(section, index) in computedCharacters" :key="index">
+  <div>
+    <div v-if="characters?.length" class="tap-dropdown">
+      <template v-for="(section, index) in resolvedCharacters">
         <section
           v-if="!section.lang || section.lang === languageCode"
+          :key="index"
           class="tap-dropdown__section"
         >
           <h3 v-if="section.label">
@@ -20,7 +21,7 @@
             </k-button>
           </div>
         </section>
-      </div>
+      </template>
     </div>
   </div>
 </template>
@@ -28,36 +29,14 @@
 <script>
 import { isObject } from "../utils/helpers";
 
-/**
- * @component TypoAndPastePanel
- * @author [@philippoehrlein](https://github.com/philippoehrlein)
- * @description A dropdown panel with special characters.
- * @props {Array} characters - An array of characters to display in the panel.
- * @props {object} translations - An object containing translations for the panel.
- * @props {string} languageCode - The language code of the current user.
- * @example
- * <TypoAndPastePanel
- *   :characters="characters"
- *   :translations="translations"
- *   :language-code="languageCode"
- * />
- */
 export default {
   props: {
     /**
      * An array of characters to display in the panel.
-     * @type {Array<{label: {[key: string]: string}, lang?: string, characters: string[]}>}
+     * @type {Array<{label: string | Record<string, string>, lang?: string, characters: string[]}>}
      */
     characters: {
       type: Array,
-      required: true,
-    },
-    /**
-     * An object containing translations for the panel.
-     * @type {object}
-     */
-    translations: {
-      type: Object,
       required: true,
     },
     /**
@@ -66,7 +45,6 @@ export default {
      */
     languageCode: {
       type: String,
-      default: "en",
       required: true,
     },
   },
@@ -75,13 +53,12 @@ export default {
      * Computes the characters to display in the panel.
      * @returns {Array<{label: string, lang?: string, characters: string[]}>} An array of character groups with labels and characters.
      */
-    computedCharacters() {
-      const currentLanguage = this.$panel.user.language || "en";
+    resolvedCharacters() {
       return this.characters.map((group) => {
         let label;
 
         if (isObject(group.label)) {
-          label = group.label[currentLanguage] || group.label.en;
+          label = group.label[this.$panel.user.language] || group.label.en;
         } else {
           label = group.label;
         }
@@ -101,12 +78,9 @@ export default {
     copyToClipboard(character) {
       navigator.clipboard.writeText(character);
       this.$panel.notification.info({
-        message:
-          this.translations[this.languageCode]?.copied_message.replace(
-            // eslint-disable-next-line no-template-curly-in-string
-            "${character}",
-            character
-          ) || `${character} copied to clipboard`,
+        message: this.$panel.t("philippoehrlein.typo-and-paste.copiedMessage", {
+          character,
+        }),
         icon: undefined,
       });
     },
@@ -117,17 +91,16 @@ export default {
 <style scoped>
 .tap-dropdown {
   width: fit-content;
-  padding: var(--spacing-3);
+  padding: var(--spacing-2);
   max-height: 60vh;
-  overflow-y: auto;
 }
 
-.tap-dropdown__section {
+.tap-dropdown > :where(*:not(:last-child)) {
   margin-bottom: var(--spacing-6);
+}
 
-  h3 {
-    margin-bottom: var(--spacing-3);
-  }
+.tap-dropdown__section h3 {
+  margin-bottom: var(--spacing-3);
 }
 
 .tap-dropdown__items {
@@ -136,19 +109,10 @@ export default {
 }
 
 .tap-dropdown__item {
-  display: block;
-  width: var(--button-height);
   padding-inline: 0;
-  cursor: pointer;
-  line-height: var(--button-height);
 }
 
 .tap-dropdown__item:hover {
   background-color: var(--dropdown-color-hr);
-}
-
-.tap-dropdown__item .k-button-text {
-  width: 20px;
-  text-align: center;
 }
 </style>
