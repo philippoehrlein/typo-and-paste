@@ -31,7 +31,10 @@ import TypoAndPastePanel from "./TypoAndPastePanel.vue";
  * @props {Array} characters - An array of characters to display in the panel.
  * @props {object} translations - An object containing translations for the button and panel.
  * @example
- * <typo-and-paste-button :characters="characters" :translations="translations" />
+ * <TypoAndPasteButton
+ *   :characters="characters"
+ *   :translations="translations"
+ * />
  */
 export default {
   components: {
