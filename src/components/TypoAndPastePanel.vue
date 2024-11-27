@@ -2,11 +2,20 @@
   <div class="tap-dropdown">
     <div v-if="characters && characters.length">
       <div v-for="(section, index) in computedCharacters" :key="index">
-        <section class="tap-dropdown__section" v-if="!section.lang || section.lang == languageCode">
-          <h3 v-if="section.label">{{ section.label }}</h3>
+        <section
+          v-if="!section.lang || section.lang === languageCode"
+          class="tap-dropdown__section"
+        >
+          <h3 v-if="section.label">
+            {{ section.label }}
+          </h3>
           <div class="tap-dropdown__items">
-            <k-button class="tap-dropdown__item" v-for="char in section.characters" :key="char"
-              @click="copyToClipboard(char)">
+            <k-button
+              v-for="char in section.characters"
+              :key="char"
+              class="tap-dropdown__item"
+              @click="copyToClipboard(char)"
+            >
               {{ char }}
             </k-button>
           </div>
@@ -22,8 +31,8 @@
  * @author [@philippoehrlein](https://github.com/philippoehrlein)
  * @description A dropdown panel with special characters.
  * @props {Array} characters - An array of characters to display in the panel.
- * @props {Object} translations - An object containing translations for the panel.
- * @props {String} languageCode - The language code of the current user.
+ * @props {object} translations - An object containing translations for the panel.
+ * @props {string} languageCode - The language code of the current user.
  * @example
  * <typo-and-paste-panel :characters="characters" :translations="translations" :languageCode="languageCode" />
  */
@@ -35,63 +44,68 @@ export default {
      */
     characters: {
       type: Array,
-      required: true
+      required: true,
     },
     /**
      * An object containing translations for the panel.
-     * @type {Object}
+     * @type {object}
      */
     translations: {
       type: Object,
-      required: true
+      required: true,
     },
     /**
      * The language code of the current user.
-     * @type {String}
+     * @type {string}
      */
     languageCode: {
       type: String,
-      default: 'en',
-      required: true
-    }
-  },
-  methods: {
-    /**
-     * Copies a character to the clipboard and shows a notification.
-     * @param {String} character - The character to copy.
-     */
-    copyToClipboard(character) {
-      navigator.clipboard.writeText(character)
-      window.panel.notification.info({
-        message: this.translations[this.languageCode]?.copied_message.replace('${character}', character) || `${character} copied to clipboard`,
-        icon: null
-      })
-    }
+      default: "en",
+      required: true,
+    },
   },
   computed: {
     /**
      * Computes the characters to display in the panel.
-     * @returns {Array<{label: string, lang?: string, characters: string[]}>}
+     * @returns {Array<{label: string, lang?: string, characters: string[]}>} An array of character groups with labels and characters.
      */
     computedCharacters() {
-      const currentLanguage = this.$panel.user.language || 'en'
-      return this.characters.map(group => {
-        let label
+      const currentLanguage = this.$panel.user.language || "en";
+      return this.characters.map((group) => {
+        let label;
 
-        if (typeof group.label === 'object' && group.label !== null) {
-          label = group.label[currentLanguage] || group.label['en']
+        if (typeof group.label === "object" && group.label !== null) {
+          label = group.label[currentLanguage] || group.label.en;
         } else {
-          label = group.label
+          label = group.label;
         }
 
         return {
           ...group,
-          label: label
-        }
-      })
-    }
-  }
-}
+          label,
+        };
+      });
+    },
+  },
+  methods: {
+    /**
+     * Copies a character to the clipboard and shows a notification.
+     * @param {string} character - The character to copy.
+     */
+    copyToClipboard(character) {
+      navigator.clipboard.writeText(character);
+      this.$panel.notification.info({
+        message:
+          this.translations[this.languageCode]?.copied_message.replace(
+            // eslint-disable-next-line no-template-curly-in-string
+            "${character}",
+            character
+          ) || `${character} copied to clipboard`,
+        icon: null,
+      });
+    },
+  },
+};
 </script>
 
 <style scoped>
