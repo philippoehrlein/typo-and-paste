@@ -13,7 +13,7 @@
   ],
   "require": {
     "php": ">=8.1.0",
-    "getkirby/composer-installer": "^1.1"
+    "getkirby/composer-installer": "^1.2"
   },
   "require-dev": {
     "getkirby/cms": "^4.0 || ^5.0"
@@ -23,7 +23,19 @@
       "Philippoehrlein\\TypoAndPaste\\": "src/"
     }
   },
+  "scripts": {
+    "dev": [
+      "Composer\\Config::disableProcessTimeout",
+      "@php -S localhost:8000 -t playground/public vendor/getkirby/cms/router.php"
+    ]
+  },
+  "config": {
+    "allow-plugins": {
+      "getkirby/composer-installer": true
+    }
+  },
   "extra": {
+    "kirby-cms-path": false,
     "installer-name": "typo-and-paste"
   }
 }

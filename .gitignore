@@ -3,3 +3,10 @@
 
 # Vendor files
 /node_modules
+/vendor
+
+# Playground files
+/playground/public/media/*
+/playground/storage/accounts/*
+/playground/storage/cache/*
+/playground/storage/sessions/*

@@ -3,10 +3,10 @@
 use Kirby\Cms\App as Kirby;
 
 Kirby::plugin('philippoehrlein/typo-and-paste', [
-    'translations' => include __DIR__ . '/config/translations.php',
-    'options' => [
-        'characters' => include __DIR__ . '/config/characters.php'
-    ],
-    'routes' => include __DIR__ . '/config/routes.php',
-    'version' => '1.1.0'
+  'api' => require __DIR__ . '/config/api.php',
+  'translations' => require __DIR__ . '/config/translations.php',
+  'options' => [
+    'characters' => require __DIR__ . '/config/characters.php'
+  ],
+  'version' => '1.1.0'
 ]);
