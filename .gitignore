@@ -5,6 +5,9 @@
 /node_modules
 /vendor
 
+# Build files
+/index.dev.mjs
+
 # Playground files
 /playground/public/media/*
 /playground/storage/accounts/*

@@ -11,7 +11,7 @@ The following versions of the Typo & Paste plugin are currently supported with s
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in Typo & Paste, please report it responsibly by sending an email to github@philippoehrlein.com.
+If you discover a security vulnerability in Typo & Paste, please report it responsibly by sending an email to [github@philippoehrlein.com](mailto:github@philippoehrlein.com).
 
 Please include as many details as possible in your report, including:
 
