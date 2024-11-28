@@ -72,6 +72,8 @@ return [
 
 #### 2. Writer Mark Button
 
+![Writer Mark Button](.github/typo-and-paste-mark-button.png)
+
 To add the special characters button to the Writer toolbar, include `typo-and-paste` in your field's marks configuration:
 
 ```yaml
@@ -97,6 +99,8 @@ fields:
 ```
 
 #### 3. Keyboard Shortcuts
+
+![Keyboard Shortcuts](.github/typo-and-paste-dialog.png)
 
 - Use `Option+T` (Mac) or `Alt+T` (Windows/Linux) to open the character dialog from anywhere
 - Navigate characters using arrow keys
