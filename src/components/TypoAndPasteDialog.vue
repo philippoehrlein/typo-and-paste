@@ -2,7 +2,7 @@
 	<k-dialog
 		:cancel-button="false"
 		:submit-button="false"
-		:size="size"
+		size="medium"
 		:visible="visible"
 		class="k-typo-and-paste-dialog"
 		@cancel="$emit('cancel')"
@@ -12,21 +12,13 @@
 </template>
 
 <script>
-import DropdownContent from './DropdownContent.vue';
+import DropdownContent from './CharacterSelector.vue';
 
 export default {
 	components: {
 		DropdownContent
 	},
 	props: {
-		/**
-		 * Width of the dialog
-		 * @values "small", "default", "medium", "large", "huge"
-		 */
-		size: {
-			default: "medium",
-			type: String
-		},
 		visible: {
 			default: false,
 			type: Boolean
@@ -67,30 +59,6 @@ export default {
 			this.$emit("close");
 		},
 		/**
-		 * Shows the error notification bar in the dialog with the given message
-		 * @param {String} error
-		 */
-		error(error) {
-			this.$panel.notification.error(error);
-		},
-		/**
-		 * Sets the focus on the first usable input
-		 * or a given input by name
-		 * @public
-		 * @param {String} input
-		 */
-		focus(input) {
-			this.$panel.dialog.focus(input);
-		},
-		/**
-		 * Updates the dialog values
-		 * @public
-		 * @param {Object} value new values
-		 */
-		input(value) {
-			this.$emit("input", value);
-		},
-		/**
 		 * Opens the dialog and triggers the `@open` event.
 		 * Use ready to fire events that should be run as
 		 * soon as the dialog is open
@@ -107,7 +75,7 @@ export default {
 		},
 		/**
 		 * Shows the success notification bar in the dialog with the given message
-		 * @param {String|Object} message
+		 * @param {string|object} success
 		 */
 		success(success) {
 			this.$emit("success", success);
@@ -118,8 +86,12 @@ export default {
 
 <style>
 .k-typo-and-paste-dialog {
-  background-color: var(--color-dark);
-  color: var(--color-light);
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+.k-dialog-body {
+	overflow-y: auto;
 }
 
 </style>

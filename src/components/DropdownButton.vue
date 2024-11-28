@@ -11,15 +11,15 @@
     >
     </k-button>
     <k-dropdown-content ref="dropdownContent" align-x="end">
-      <DropdownContent :characters="characters" :language-code="languageCode" />
+      <DropdownContent :characters="characters" :language-code="languageCode" @close="closeDropdown" />
     </k-dropdown-content>
   </div>
 </template>
 
 <script setup>
 import { computed, ref, usePanel } from "kirbyuse";
-import { useEventListener } from "../composables/useEventListener";
-import DropdownContent from "./DropdownContent.vue";
+// import { useEventListener } from "../composables/useEventListener";
+import DropdownContent from "./CharacterSelector.vue";
 
 const panel = usePanel();
 const dropdownTrigger = ref();
@@ -39,13 +39,18 @@ const languageCode = computed(
   }
 })();
 
-// Keystroke Option+T / Alt+T toggles the dropdown content
-useEventListener(window, "keydown", (event) => {
-  if (!event.altKey || event.code !== "KeyT") return;
+// Close the dropdown
+const closeDropdown = () => {
+  dropdownContent.value.toggle();
+}
 
-  // Calling the `toggle` method here doesn't work, because top/left styles for
-  // the dropdown content are missing. They are set when the trigger button is clicked.
-  // So we have to simulate a click on the button instead.
-  dropdownTrigger.value.$el.click();
-});
+// // Keystroke Option+T / Alt+T toggles the dropdown content
+// useEventListener(window, "keydown", (event) => {
+//   if (!event.altKey || event.code !== "KeyT") return;
+
+//   // Calling the `toggle` method here doesn't work, because top/left styles for
+//   // the dropdown content are missing. They are set when the trigger button is clicked.
+//   // So we have to simulate a click on the button instead.
+//   dropdownTrigger.value.$el.click();
+// });
 </script>
