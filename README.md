@@ -74,7 +74,7 @@ return [
 
 ![Writer Mark Button](.github/typo-and-paste-mark-button.png)
 
-To add the special characters button to the Writer toolbar, include `typo-and-paste` in your field's marks configuration:
+To add the **Typo & Paste** button to the Writer toolbar, include `typo-and-paste` in your field's marks configuration:
 
 ```yaml
 fields:
@@ -98,7 +98,20 @@ fields:
         - typo-and-paste
 ```
 
-#### 3. Keyboard Shortcuts
+#### 3. Textarea Button
+
+To add the **Typo & Paste** button to the textarea, include `typo-and-paste` in your field's buttons configuration:
+
+```yaml
+fields:
+  article:
+    label: Article
+    type: textarea
+    buttons:
+      - typo-and-paste
+```
+
+#### 4. Keyboard Shortcuts
 
 ![Keyboard Shortcuts](.github/typo-and-paste-dialog.png)
 

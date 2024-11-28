@@ -2,6 +2,7 @@ import DropdownButton from "./components/DropdownButton.vue";
 import TypoAndPasteDialog from "./components/TypoAndPasteDialog.vue";
 import { useEventListener } from "./composables/useEventListener";
 import { icons } from "./config/icons";
+import { textareaButtons } from "./config/textareaButtons";
 import { writerMarks } from "./config/writerMarks";
 import { createLegacyMixin } from "./utils/legacySupport";
 
@@ -17,6 +18,7 @@ window.panel.plugin("philippoehrlein/typo-and-paste", {
         "typo-and-paste": DropdownButton,
       }
     : undefined,
+  textareaButtons,
   writerMarks,
   use: [
     function() {

@@ -3,7 +3,7 @@ export const writerMarks = {
     get button() {
       return {
         icon: "typo-and-paste",
-        label: "Special Characters"
+        label: "Typo & Paste",
       };
     },
 
