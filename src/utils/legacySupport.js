@@ -2,10 +2,10 @@ import DropdownButton from "../components/DropdownButton.vue";
 
 export function createLegacyMixin(isKirby5) {
   if (isKirby5) {
-    return function() {};
+    return () => {};
   }
 
-  return function(Vue) {
+  return function (Vue) {
     Vue.mixin({
       async mounted() {
         if (this.$options.name !== "k-header") return;

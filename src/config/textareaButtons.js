@@ -4,8 +4,8 @@ export const textareaButtons = {
     label: "Typo & Paste",
     click() {
       window.panel.dialog.open({
-        component: 'k-typo-and-paste-dialog'
+        component: "k-typo-and-paste-dialog",
       });
-    }
-  }
-}
+    },
+  },
+};

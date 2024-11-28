@@ -10,13 +10,13 @@ export const writerMarks = {
     commands() {
       return () => {
         window.panel.dialog.open({
-          component: 'k-typo-and-paste-dialog'
+          component: "k-typo-and-paste-dialog",
         });
       };
     },
 
     get name() {
       return "typo-and-paste";
-    }
-  }
+    },
+  },
 };

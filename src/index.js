@@ -11,7 +11,7 @@ const isKirby5 = window.panel.plugins.viewButtons !== undefined;
 window.panel.plugin("philippoehrlein/typo-and-paste", {
   icons,
   components: {
-    'k-typo-and-paste-dialog': TypoAndPasteDialog
+    "k-typo-and-paste-dialog": TypoAndPasteDialog,
   },
   viewButtons: isKirby5
     ? {
@@ -21,15 +21,15 @@ window.panel.plugin("philippoehrlein/typo-and-paste", {
   textareaButtons,
   writerMarks,
   use: [
-    function() {
-      useEventListener(window, 'keydown', (event) => {
+    function () {
+      useEventListener(window, "keydown", (event) => {
         if (!event.altKey || event.code !== "KeyT") return;
-        
+
         window.panel.dialog.open({
-          component: 'k-typo-and-paste-dialog'
+          component: "k-typo-and-paste-dialog",
         });
       });
     },
-    createLegacyMixin(isKirby5)
+    createLegacyMixin(isKirby5),
   ],
 });
