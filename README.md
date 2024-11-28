@@ -12,6 +12,7 @@
 - **Multi-Language Support**: Supports various languages for characters and the user interface.
 - **Custom Characters**: Users can define and add their own characters.
 - **Clipboard Copy**: Easily copy characters to the clipboard.
+- **Keyboard Shortcuts**: Use `Option+T` (Mac) or `Alt+T` (Windows/Linux) to toggle the character panel.
 
 ## Compatibility
 
