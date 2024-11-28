@@ -47,6 +47,15 @@ export default {
       type: String,
       required: true,
     },
+    /**
+     * The type of the dropdown content.
+     * @type {string}
+     */
+    type: {
+      type: String,
+      required: true,
+      default: 'dropdown'
+    },
   },
   computed: {
     /**
@@ -69,6 +78,17 @@ export default {
         };
       });
     },
+  },
+  mounted() {
+    if (this.type === 'dialog') {
+      console.log('dialog');
+      this.$nextTick(() => {
+        const firstButton = this.$el.querySelector('.k-button');
+        if (firstButton) {
+          firstButton.focus();
+        }
+      });
+    }
   },
   methods: {
     /**
