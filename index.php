@@ -8,5 +8,5 @@ Kirby::plugin('philippoehrlein/typo-and-paste', [
   'options' => [
     'characters' => require __DIR__ . '/config/characters.php'
   ],
-  'version' => '2.1.0'
+  'version' => '2.2.0'
 ]);
