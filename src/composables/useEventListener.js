@@ -1,5 +1,4 @@
-import { getCurrentScope, onScopeDispose, watch } from "kirbyuse";
-import { toValue } from "./toValue";
+import { getCurrentScope, onScopeDispose, unref, watch } from "kirbyuse";
 
 export function useEventListener(target, event, listener, options) {
   let cleanupFn;
@@ -37,6 +36,6 @@ export function useEventListener(target, event, listener, options) {
 }
 
 export function unrefElement(elRef) {
-  const plain = toValue(elRef);
+  const plain = unref(elRef);
   return plain?.$el ?? plain;
 }
