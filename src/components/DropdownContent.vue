@@ -1,91 +1,88 @@
 <template>
-  <div>
-    <div v-if="characters?.length" class="tap-dropdown">
-      <template v-for="(section, index) in resolvedCharacters">
-        <section
-          v-if="!section.lang || section.lang === languageCode"
-          :key="index"
-          class="tap-dropdown__section"
-        >
-          <h3 v-if="section.label">
-            {{ section.label }}
-          </h3>
-          <div class="tap-dropdown__items">
-            <k-button
-              v-for="char in section.characters"
-              :key="char"
-              class="tap-dropdown__item"
-              @click="copyToClipboard(char)"
-            >
-              {{ char }}
-            </k-button>
-          </div>
-        </section>
-      </template>
-    </div>
+  <div v-if="characters?.length" class="tap-dropdown">
+    <template v-for="(section, index) in resolvedCharacters">
+      <section
+        v-if="!section.lang || section.lang === languageCode"
+        :key="index"
+        class="tap-dropdown__section"
+      >
+        <h3 v-if="section.label">
+          {{ section.label }}
+        </h3>
+        <div class="tap-dropdown__items">
+          <k-button
+            v-for="char in section.characters"
+            :key="char"
+            class="tap-dropdown__item"
+            @click="copyToClipboard(char)"
+          >
+            {{ char }}
+          </k-button>
+        </div>
+      </section>
+    </template>
   </div>
 </template>
 
-<script>
+<script setup>
+import { computed, usePanel } from "kirbyuse";
 import { isObject } from "../utils/helpers";
 
-export default {
-  props: {
-    /**
-     * An array of characters to display in the panel.
-     * @type {Array<{label: string | Record<string, string>, lang?: string, characters: string[]}>}
-     */
-    characters: {
-      type: Array,
-      required: true,
-    },
-    /**
-     * The language code of the current user.
-     * @type {string}
-     */
-    languageCode: {
-      type: String,
-      required: true,
-    },
+const props = defineProps({
+  /**
+   * An array of characters to display in the panel.
+   * @type {Array<{label: string | Record<string, string>, lang?: string, characters: string[]}>}
+   */
+  characters: {
+    type: Array,
+    required: true,
   },
-  computed: {
-    /**
-     * Computes the characters to display in the panel.
-     * @returns {Array<{label: string, lang?: string, characters: string[]}>} An array of character groups with labels and characters.
-     */
-    resolvedCharacters() {
-      return this.characters.map((group) => {
-        let label;
+  /**
+   * The language code of the current user.
+   * @type {string}
+   */
+  languageCode: {
+    type: String,
+    required: true,
+  },
+});
 
-        if (isObject(group.label)) {
-          label = group.label[this.$panel.user.language] || group.label.en;
-        } else {
-          label = group.label;
-        }
+const panel = usePanel();
 
-        return {
-          ...group,
-          label,
-        };
-      });
-    },
-  },
-  methods: {
-    /**
-     * Copies a character to the clipboard and shows a notification.
-     * @param {string} character - The character to copy.
-     */
-    copyToClipboard(character) {
-      navigator.clipboard.writeText(character);
-      this.$panel.notification.info({
-        message: this.$panel.t("philippoehrlein.typo-and-paste.copiedMessage", {
-          character,
-        }),
-        icon: undefined,
-      });
-    },
-  },
-};
+/**
+ * Computes the characters to display in the panel.
+ * @returns {Array<{label: string, lang?: string, characters: string[]}>} An array of character groups with labels and characters.
+ */
+const resolvedCharacters = computed(() => {
+  return props.characters.map((group) => {
+    let label;
+
+    if (isObject(group.label)) {
+      label = group.label[panel.user.language] || group.label.en;
+    } else {
+      label = group.label;
+    }
+
+    return {
+      ...group,
+      label,
+    };
+  });
+});
+
+/**
+ * Copies a character to the clipboard and shows a notification.
+ * @param {string} character - The character to copy.
+ */
+function copyToClipboard(character) {
+  navigator.clipboard.writeText(character);
+  panel.notification.info({
+    message: panel.t("philippoehrlein.typo-and-paste.copiedMessage", {
+      character,
+    }),
+    icon: undefined,
+  });
+}
 </script>
 
 <style scoped>

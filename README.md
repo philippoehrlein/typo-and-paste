@@ -66,6 +66,9 @@ To enable the **Typo & Paste** button in the Kirby Panel, you can configure it i
    ];
    ```
 
+> [!TIP]
+> On `Option+T` (Mac) or `Alt+T` (Windows/Linux), you can toggle the visibility of the Panel toolbar.
+
 ### Options
 
 You can configure the plugin in the `site/config/config.php` file. The following options are available:
