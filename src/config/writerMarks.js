@@ -1,5 +1,5 @@
 export const writerMarks = {
-  typoandpaste: {
+  "typo-and-paste": {
     get button() {
       return {
         icon: "typo-and-paste",
@@ -16,7 +16,7 @@ export const writerMarks = {
     },
 
     get name() {
-      return "typoandpaste";
+      return "typo-and-paste";
     }
   }
 };

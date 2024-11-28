@@ -18,7 +18,6 @@
 
 <script setup>
 import { computed, ref, usePanel } from "kirbyuse";
-// import { useEventListener } from "../composables/useEventListener";
 import DropdownContent from "./CharacterSelector.vue";
 
 const panel = usePanel();
@@ -43,14 +42,4 @@ const languageCode = computed(
 const closeDropdown = () => {
   dropdownContent.value.toggle();
 }
-
-// // Keystroke Option+T / Alt+T toggles the dropdown content
-// useEventListener(window, "keydown", (event) => {
-//   if (!event.altKey || event.code !== "KeyT") return;
-
-//   // Calling the `toggle` method here doesn't work, because top/left styles for
-//   // the dropdown content are missing. They are set when the trigger button is clicked.
-//   // So we have to simulate a click on the button instead.
-//   dropdownTrigger.value.$el.click();
-// });
 </script>
