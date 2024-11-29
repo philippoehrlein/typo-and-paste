@@ -11,7 +11,7 @@
 
 - **Multi-Language Support**: Supports various languages for characters and the user interface.
 - **Custom Characters**: Users can define and add their own characters.
-- **Multiple Access Points**: 
+- **Multiple Access Points**:
   - Panel toolbar button
   - Writer mark button
   - Keyboard shortcuts (`Option+T` / `Alt+T`)
@@ -42,10 +42,9 @@ The plugin provides four ways to access special characters:
 
 #### 1. Panel Toolbar Button
 
-In Kirby 5, configure the toolbar button:
+In Kirby 5, configure the Panel toolbar button in your page, site, or file blueprint:
 
 ```yaml
-# In your blueprint
 buttons:
   - typo-and-paste
   - preview
@@ -89,18 +88,18 @@ fields:
         - underline
         - strike
         - code
-        - '|'
+        - "|"
         - link
         - email
-        - '|'
+        - "|"
         - clear
-        - '|'
+        - "|"
         - typo-and-paste
 ```
 
 #### 3. Textarea Button
 
-To add the **Typo & Paste** button to the textarea, include `typo-and-paste` in your field's buttons configuration:
+To add the **Typo & Paste** button to a textarea, add `typo-and-paste` in your field's buttons configuration:
 
 ```yaml
 fields:
@@ -117,7 +116,7 @@ fields:
 
 - Use `Option+T` (Mac) or `Alt+T` (Windows/Linux) to open the character dialog from anywhere
 - Navigate characters using arrow keys
-- Press Enter to add the selected character to your clipboard
+- Press `Enter` to add the selected character to your clipboard
 
 ### Character Configuration
 
@@ -161,7 +160,7 @@ return [
 1. Clone the repository
 2. Install dependencies: `composer install`
 3. Run playground: `composer dev`
-4. Open: [http://localhost:8000](http://localhost:8000)
+4. Open: [localhost:8000](http://localhost:8000)
 
 ## License
 
