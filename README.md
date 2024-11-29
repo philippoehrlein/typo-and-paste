@@ -38,7 +38,7 @@ composer require philippoehrlein/typo-and-paste
 
 ### Access Points
 
-The plugin provides three ways to access special characters:
+The plugin provides four ways to access special characters:
 
 #### 1. Panel Toolbar Button
 
