@@ -7,12 +7,17 @@
     class="k-typo-and-paste-dialog"
     @cancel="emit('cancel')"
   >
-    <CharacterSelector :language-code="languageCode" type="dialog" />
+    <CharacterSelector
+      :characters="characters"
+      :language-code="languageCode"
+      type="dialog"
+    />
   </k-dialog>
 </template>
 
 <script setup>
-import { computed, usePanel } from "kirbyuse";
+import { computed, ref, usePanel } from "kirbyuse";
+import { useCachedCharacters } from "../composables/useCachedCharacters";
 import CharacterSelector from "./CharacterSelector.vue";
 
 defineProps({
@@ -24,10 +29,15 @@ defineProps({
 
 const emit = defineEmits(["cancel", "close", "input", "submit", "success"]);
 const panel = usePanel();
+const characters = ref([]);
 
 const languageCode = computed(
   () => panel.language?.code || panel.user?.language || "en"
 );
+
+(async () => {
+  characters.value = await useCachedCharacters();
+})();
 </script>
 
 <style>
