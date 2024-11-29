@@ -203,9 +203,9 @@ function handleKeyNavigation(event) {
         // Shift+Tab -> Previous section
         nextSectionIndex = currentSectionIndex - 1;
         if (nextSectionIndex < 0) {
-          focusFirstButtonInSection(sections.at(-1));
+          focusLastButtonInSection(sections.at(-1));
         } else {
-          focusFirstButtonInSection(sections[nextSectionIndex]);
+          focusLastButtonInSection(sections[nextSectionIndex]);
         }
       } else {
         // Tab -> Next section
