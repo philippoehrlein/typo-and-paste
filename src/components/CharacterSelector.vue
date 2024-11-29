@@ -40,10 +40,17 @@
 
 <script setup>
 import { computed, nextTick, onMounted, ref, usePanel } from "kirbyuse";
-import { useCachedCharacters } from "../composables/useCachedCharacters";
 import { isObject } from "../utils/helpers";
 
 const props = defineProps({
+  /**
+   * An array of characters to display in the panel.
+   * @type {Array<{label: string | Record<string, string>, lang?: string, characters: string[]}>}
+   */
+  characters: {
+    type: Array,
+    required: true,
+  },
   /**
    * The language code of the current user.
    * @type {string}
@@ -65,7 +72,6 @@ const props = defineProps({
 const emit = defineEmits(["close"]);
 
 const panel = usePanel();
-const characters = ref([]);
 const charactersSections = ref();
 const characterButtons = ref();
 const GRID_COLUMNS = props.type === "dialog" ? 12 : 8; // Number of columns in the grid
@@ -75,7 +81,7 @@ const GRID_COLUMNS = props.type === "dialog" ? 12 : 8; // Number of columns in t
  * @returns {Array<{label: string, lang?: string, characters: string[]}>} An array of character groups with labels and characters.
  */
 const resolvedCharacters = computed(() => {
-  return characters.value.map((group) => {
+  return props.characters.map((group) => {
     let label;
 
     if (isObject(group.label)) {
@@ -92,7 +98,6 @@ const resolvedCharacters = computed(() => {
 });
 
 onMounted(async () => {
-  characters.value = await useCachedCharacters();
   await nextTick();
 
   // Set the focus on the first button
@@ -249,7 +254,7 @@ function focusLastButtonInSection(section) {
 
 .tap-characters--dropdown {
   width: fit-content;
-  padding: var(--spacing-4);
+  padding: var(--spacing-2);
   max-height: 60vh;
 }
 

@@ -7,7 +7,7 @@
       variant="filled"
       size="sm"
       icon="typo-and-paste"
-      @click="close()"
+      @click="toggle()"
     >
     </k-button>
     <k-dropdown-content
@@ -15,31 +15,34 @@
       class="dropdown-content"
       align-x="end"
     >
-      <CharacterSelector :language-code="languageCode" @close="close()" />
+      <CharacterSelector
+        :characters="characters"
+        :language-code="languageCode"
+        @close="toggle()"
+      />
     </k-dropdown-content>
   </div>
 </template>
 
 <script setup>
 import { computed, ref, usePanel } from "kirbyuse";
+import { useCachedCharacters } from "../composables/useCachedCharacters";
 import CharacterSelector from "./CharacterSelector.vue";
 
 const panel = usePanel();
 const dropdownTrigger = ref();
 const dropdownContent = ref();
+const characters = ref([]);
 
 const languageCode = computed(
   () => panel.language?.code || panel.user?.language || "en"
 );
 
-function close() {
+function toggle() {
   dropdownContent.value.toggle();
 }
-</script>
 
-<style scoped>
-/* Remove default padding to prevent flash of content until characters are loaded */
-.dropdown-content {
-  --dropdown-padding: 0;
-}
-</style>
+(async () => {
+  characters.value = await useCachedCharacters();
+})();
+</script>
