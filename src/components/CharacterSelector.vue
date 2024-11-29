@@ -1,15 +1,28 @@
 <template>
-  <div v-if="characters?.length" class="tap-characters" :class="{ 'tap-characters--dialog': type === 'dialog' }" tabindex="-1">
+  <div
+    v-if="characters?.length"
+    ref="charactersPanel"
+    class="tap-characters"
+    :class="[type !== 'dialog' && 'tap-characters--dropdown']"
+    tabindex="-1"
+  >
     <template v-for="(section, index) in resolvedCharacters">
       <section
         v-if="!section.lang || section.lang === languageCode"
         :key="index"
+        ref="charactersSections"
         class="tap-characters__section"
       >
         <h3 v-if="section.label">
           {{ section.label }}
         </h3>
-        <div class="tap-characters__items" @keydown="handleKeyNavigation">
+        <div
+          class="tap-characters__items"
+          :style="{
+            '--grid-columns': GRID_COLUMNS,
+          }"
+          @keydown="handleKeyNavigation"
+        >
           <k-button
             v-for="char in section.characters"
             :key="char"
@@ -26,46 +39,43 @@
 </template>
 
 <script setup>
-import { computed, onMounted, usePanel } from "kirbyuse";
+import { computed, nextTick, onMounted, ref, usePanel } from "kirbyuse";
+import { useCachedCharacters } from "../composables/useCachedCharacters";
 import { isObject } from "../utils/helpers";
 
 const props = defineProps({
-    /**
-     * An array of characters to display in the panel.
-     * @type {Array<{label: string | Record<string, string>, lang?: string, characters: string[]}>}
-     */
-    characters: {
-      type: Array,
-      required: true,
-    },
-    /**
-     * The language code of the current user.
-     * @type {string}
-     */
-    languageCode: {
-      type: String,
-      required: true,
-    },
-    /**
-     * The type of the dropdown content.
-     * @type {string}
-     */
-    type: {
-      type: String,
-      required: true,
-      default: 'dropdown'
-    }
+  /**
+   * The language code of the current user.
+   * @type {string}
+   */
+  languageCode: {
+    type: String,
+    required: true,
+  },
+  /**
+   * The type of the dropdown content.
+   * @type {'dropdown' | 'dialog'}
+   */
+  type: {
+    type: String,
+    default: "dropdown",
+  },
 });
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(["close"]);
+
 const panel = usePanel();
+const characters = ref([]);
+const charactersPanel = ref();
+const charactersSections = ref();
+const GRID_COLUMNS = props.type === "dialog" ? 12 : 8; // Number of columns in the grid
 
 /**
  * Computes the characters to display in the panel.
  * @returns {Array<{label: string, lang?: string, characters: string[]}>} An array of character groups with labels and characters.
  */
 const resolvedCharacters = computed(() => {
-  return props.characters.map((group) => {
+  return characters.value.map((group) => {
     let label;
 
     if (isObject(group.label)) {
@@ -73,12 +83,18 @@ const resolvedCharacters = computed(() => {
     } else {
       label = group.label;
     }
-    focusFirstButton();
+
     return {
       ...group,
       label,
     };
   });
+});
+
+onMounted(async () => {
+  characters.value = await useCachedCharacters();
+  await nextTick();
+  focusFirstButton();
 });
 
 /**
@@ -87,11 +103,13 @@ const resolvedCharacters = computed(() => {
  */
 function copyToClipboard(character) {
   navigator.clipboard.writeText(character);
-  if(props.type === 'dialog') {
+
+  if (props.type === "dialog") {
     panel.dialog.close();
   } else {
-    emit('close');
+    emit("close");
   }
+
   panel.notification.info({
     message: panel.t("philippoehrlein.typo-and-paste.copiedMessage", {
       character,
@@ -100,27 +118,32 @@ function copyToClipboard(character) {
   });
 }
 
-// New constants for navigation
-const GRID_COLUMNS = props.type === 'dialog' ? 12 : 8; // Number of columns in the grid
-
 /**
  * Handles keyboard navigation through the character grid
  * @param {KeyboardEvent} event - The keyboard event
  */
 function handleKeyNavigation(event) {
-  if(event.key !== 'Enter')event.stopPropagation();
+  if (event.key !== "Enter") event.stopPropagation();
 
-  const sections = Array.from(document.querySelectorAll('.tap-characters__section')); // All sections
-  const buttons = Array.from(event.currentTarget.querySelectorAll('.tap-characters__item')); // All character buttons in the current section
-  const currentIndex = buttons.findIndex(button => button === document.activeElement);
-  const currentSectionIndex = sections.findIndex(section => section.contains(document.activeElement)); // Current section
+  // All sections
+  const sections = charactersSections.value;
+  // All character buttons in the current section
+  const buttons = [
+    ...event.currentTarget.querySelectorAll(".tap-characters__item"),
+  ];
+  const currentIndex = buttons.findIndex(
+    (button) => button === document.activeElement
+  );
+  const currentSectionIndex = sections.findIndex((section) =>
+    section.contains(document.activeElement)
+  );
 
   if (currentIndex === -1 && currentSectionIndex === -1) return; // No valid focus
 
   let nextIndex, nextSectionIndex;
 
   switch (event.key) {
-    case 'ArrowRight':
+    case "ArrowRight":
       nextIndex = currentIndex + 1;
       if (nextIndex < buttons.length) {
         buttons[nextIndex].focus();
@@ -128,7 +151,7 @@ function handleKeyNavigation(event) {
       event.preventDefault();
       break;
 
-    case 'ArrowLeft':
+    case "ArrowLeft":
       nextIndex = currentIndex - 1;
       if (nextIndex >= 0) {
         buttons[nextIndex].focus();
@@ -136,7 +159,7 @@ function handleKeyNavigation(event) {
       event.preventDefault();
       break;
 
-    case 'ArrowDown':
+    case "ArrowDown":
       nextIndex = currentIndex + GRID_COLUMNS;
 
       // Switch to the next section if the bottom is reached
@@ -153,7 +176,7 @@ function handleKeyNavigation(event) {
       event.preventDefault();
       break;
 
-    case 'ArrowUp':
+    case "ArrowUp":
       nextIndex = currentIndex - GRID_COLUMNS;
 
       // Switch to the previous section if the top is reached
@@ -170,16 +193,16 @@ function handleKeyNavigation(event) {
       event.preventDefault();
       break;
 
-    case 'Enter':
-    case ' ':
+    case "Enter":
+    case " ":
       event.preventDefault();
       if (currentIndex !== -1) {
         const character = buttons[currentIndex].textContent.trim();
-        copyToClipboard(character); // Copy character
+        copyToClipboard(character);
       }
       break;
 
-    case 'Tab':
+    case "Tab":
       event.preventDefault();
       if (event.shiftKey) {
         // Shift+Tab -> Previous section
@@ -196,8 +219,8 @@ function handleKeyNavigation(event) {
       }
       break;
 
-    case 'Escape':
-      emit('close'); // Close overview
+    case "Escape":
+      emit("close"); // Close overview
       break;
 
     default:
@@ -210,10 +233,7 @@ function handleKeyNavigation(event) {
  * @param {HTMLElement} section - The section to set the focus on.
  */
 function focusFirstButtonInSection(section) {
-  const firstButton = section.querySelector('.tap-characters__item');
-  if (firstButton) {
-    firstButton.focus();
-  }
+  section.querySelector(".tap-characters__item")?.focus();
 }
 
 /**
@@ -221,47 +241,27 @@ function focusFirstButtonInSection(section) {
  * @param {HTMLElement} section - The section to set the focus on.
  */
 function focusLastButtonInSection(section) {
-  const buttons = Array.from(section.querySelectorAll('.tap-characters__item'));
-  const lastButton = buttons[buttons.length - 1];
-  if (lastButton) {
-    lastButton.focus();
-  }
+  const buttons = [...section.querySelectorAll(".tap-characters__item")];
+  buttons.at(-1)?.focus();
 }
 
 /**
  * Sets the focus on the first button in the character grid.
  */
 function focusFirstButton() {
-  setTimeout(() => {
-    const firstButton = document.querySelector('.tap-characters__item');
-    if (firstButton) {
-      firstButton.focus();
-    }
-  }, 0);
+  document.querySelector(".tap-characters__item")?.focus();
 }
-
-// Add the onMounted hook
-onMounted(() => {
-  focusFirstButton();
-});
 </script>
 
 <style scoped>
-
 .k-button:focus {
-  outline:var(--outline);
+  outline: var(--outline);
 }
 
-.tap-characters {
+.tap-characters--dropdown {
   width: fit-content;
   padding: var(--spacing-2);
   max-height: 60vh;
-}
-
-.tap-characters--dialog {
-  padding: 0;
-  margin: 0 auto;
-  width: 100%;
 }
 
 .tap-characters > :where(*:not(:last-child)) {
@@ -274,11 +274,10 @@ onMounted(() => {
 
 .tap-characters__items {
   display: grid;
-  grid-template-columns: repeat(8, minmax(var(--button-height), 1fr));
-}
-
-.tap-characters--dialog .tap-characters__items {
-  grid-template-columns: repeat(12, minmax(var(--button-height), 1fr));
+  grid-template-columns: repeat(
+    var(--grid-columns),
+    minmax(var(--button-height), 1fr)
+  );
 }
 
 .tap-characters__item {
