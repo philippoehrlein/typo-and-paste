@@ -245,7 +245,7 @@ function focusLastButtonInSection(section) {
 
 .tap-characters--dropdown {
   width: fit-content;
-  padding: var(--spacing-2);
+  padding: var(--spacing-4);
   max-height: 60vh;
 }
 
@@ -266,7 +266,7 @@ function focusLastButtonInSection(section) {
 }
 
 .tap-characters__item {
-  padding-inline: 0;
+  --button-padding: 0;
 }
 
 .tap-characters__item:hover {
