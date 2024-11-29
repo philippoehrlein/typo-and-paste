@@ -1,7 +1,6 @@
 <template>
   <div
     v-if="characters?.length"
-    ref="charactersPanel"
     class="tap-characters"
     :class="[type !== 'dialog' && 'tap-characters--dropdown']"
     tabindex="-1"
@@ -26,6 +25,7 @@
           <k-button
             v-for="char in section.characters"
             :key="char"
+            ref="characterButtons"
             class="tap-characters__item"
             tabindex="0"
             @click="copyToClipboard(char)"
@@ -66,8 +66,8 @@ const emit = defineEmits(["close"]);
 
 const panel = usePanel();
 const characters = ref([]);
-const charactersPanel = ref();
 const charactersSections = ref();
+const characterButtons = ref();
 const GRID_COLUMNS = props.type === "dialog" ? 12 : 8; // Number of columns in the grid
 
 /**
@@ -94,7 +94,9 @@ const resolvedCharacters = computed(() => {
 onMounted(async () => {
   characters.value = await useCachedCharacters();
   await nextTick();
-  focusFirstButton();
+
+  // Set the focus on the first button
+  characterButtons.value?.[0]?.$el?.focus();
 });
 
 /**
@@ -120,23 +122,20 @@ function copyToClipboard(character) {
 
 /**
  * Handles keyboard navigation through the character grid
- * @param {KeyboardEvent} event - The keyboard event
+ * @param {KeyboardEvent} event - The keyboard event.
  */
 function handleKeyNavigation(event) {
   if (event.key !== "Enter") event.stopPropagation();
 
-  // All sections
   const sections = charactersSections.value;
-  // All character buttons in the current section
-  const buttons = [
-    ...event.currentTarget.querySelectorAll(".tap-characters__item"),
-  ];
-  const currentIndex = buttons.findIndex(
-    (button) => button === document.activeElement
+  const currentSection = document.activeElement.closest(
+    ".tap-characters__section"
   );
-  const currentSectionIndex = sections.findIndex((section) =>
-    section.contains(document.activeElement)
-  );
+  if (!currentSection) return;
+
+  const buttons = [...currentSection.querySelectorAll(".tap-characters__item")];
+  const currentIndex = buttons.indexOf(document.activeElement);
+  const currentSectionIndex = sections.indexOf(currentSection);
 
   if (currentIndex === -1 && currentSectionIndex === -1) return; // No valid focus
 
@@ -243,13 +242,6 @@ function focusFirstButtonInSection(section) {
 function focusLastButtonInSection(section) {
   const buttons = [...section.querySelectorAll(".tap-characters__item")];
   buttons.at(-1)?.focus();
-}
-
-/**
- * Sets the focus on the first button in the character grid.
- */
-function focusFirstButton() {
-  document.querySelector(".tap-characters__item")?.focus();
 }
 </script>
 

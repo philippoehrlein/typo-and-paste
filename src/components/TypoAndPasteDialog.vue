@@ -30,7 +30,7 @@ const languageCode = computed(
 );
 </script>
 
-<style scoped>
+<style>
 .k-typo-and-paste-dialog {
   background-color: var(--color-black);
   color: var(--color-white);
