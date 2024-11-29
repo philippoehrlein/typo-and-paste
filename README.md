@@ -1,7 +1,7 @@
 # Typo & Paste
 
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Version](https://img.shields.io/badge/version-2.2.2-blue)
+![Version](https://img.shields.io/badge/version-2.2.3-blue)
 
 **Typo & Paste** is a Kirby plugin that allows users to easily manage and insert special characters with multi-language support.
 
@@ -14,6 +14,7 @@
 - **Multiple Access Points**:
   - Panel toolbar button
   - Writer mark button
+  - Textarea button
   - Keyboard shortcuts (`Option+T` / `Alt+T`)
 - **Clipboard Copy**: Easily copy characters to the clipboard.
 
@@ -139,6 +140,26 @@ return [
   ]
 ];
 ```
+
+### AI Support
+
+This plugin includes an AI-friendly schema definition (AI-SCHEMA.md) to help generate configurations using AI language models. The schema provides:
+
+- Structured format for character group definitions
+- Clear property descriptions and requirements
+- Guidelines for creating meaningful character groups
+- Examples of proper configuration
+
+#### Using AI for Configuration
+
+1. Share the content of [AI-SCHEMA.md](AI-SCHEMA.md) with your AI assistant
+2. Describe your specific use case and requirements
+3. The AI will generate a configuration following the schema
+4. Review and adjust the generated configuration as needed
+
+#### Example prompt:
+
+> Using the schema, create a configuration for a blog about [your topic]. The content will be in [languages] and editors work in [languages].
 
 ## Translations
 
