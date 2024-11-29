@@ -143,22 +143,23 @@ function handleKeyNavigation(event) {
 
   switch (event.key) {
     case "ArrowRight":
+      event.preventDefault();
       nextIndex = currentIndex + 1;
       if (nextIndex < buttons.length) {
         buttons[nextIndex].focus();
       }
-      event.preventDefault();
       break;
 
     case "ArrowLeft":
+      event.preventDefault();
       nextIndex = currentIndex - 1;
       if (nextIndex >= 0) {
         buttons[nextIndex].focus();
       }
-      event.preventDefault();
       break;
 
     case "ArrowDown":
+      event.preventDefault();
       nextIndex = currentIndex + GRID_COLUMNS;
 
       // Switch to the next section if the bottom is reached
@@ -166,16 +167,14 @@ function handleKeyNavigation(event) {
         nextSectionIndex = currentSectionIndex + 1;
         if (nextSectionIndex < sections.length) {
           focusFirstButtonInSection(sections[nextSectionIndex]);
-          event.preventDefault();
-          return;
         }
       } else {
         buttons[nextIndex].focus();
       }
-      event.preventDefault();
       break;
 
     case "ArrowUp":
+      event.preventDefault();
       nextIndex = currentIndex - GRID_COLUMNS;
 
       // Switch to the previous section if the top is reached
@@ -183,17 +182,14 @@ function handleKeyNavigation(event) {
         nextSectionIndex = currentSectionIndex - 1;
         if (nextSectionIndex >= 0) {
           focusLastButtonInSection(sections[nextSectionIndex]);
-          event.preventDefault();
-          return;
         }
       } else {
         buttons[nextIndex].focus();
       }
-      event.preventDefault();
       break;
 
     case "Enter":
-    case " ":
+    case "Space":
       event.preventDefault();
       if (currentIndex !== -1) {
         const character = buttons[currentIndex].textContent.trim();
@@ -220,9 +216,6 @@ function handleKeyNavigation(event) {
 
     case "Escape":
       emit("close"); // Close overview
-      break;
-
-    default:
       break;
   }
 }
