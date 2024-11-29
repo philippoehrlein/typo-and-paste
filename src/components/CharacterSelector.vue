@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="characters?.length"
+    v-if="characters.length"
     class="tap-characters"
     :class="[type !== 'dialog' && 'tap-characters--dropdown']"
     tabindex="-1"
@@ -202,13 +202,17 @@ function handleKeyNavigation(event) {
       if (event.shiftKey) {
         // Shift+Tab -> Previous section
         nextSectionIndex = currentSectionIndex - 1;
-        if (nextSectionIndex >= 0) {
+        if (nextSectionIndex < 0) {
+          focusFirstButtonInSection(sections.at(-1));
+        } else {
           focusFirstButtonInSection(sections[nextSectionIndex]);
         }
       } else {
         // Tab -> Next section
         nextSectionIndex = currentSectionIndex + 1;
-        if (nextSectionIndex < sections.length) {
+        if (nextSectionIndex >= sections.length) {
+          focusFirstButtonInSection(sections[0]);
+        } else {
           focusFirstButtonInSection(sections[nextSectionIndex]);
         }
       }
