@@ -172,7 +172,7 @@ This plugin includes an AI-friendly schema definition (AI-SCHEMA.md) to help gen
 
 #### Using AI for Configuration
 
-1. Share the content of [AI-SCHEMA.md](AI-SCHEMA.md) with your AI assistant
+1. Share the content of <a href="https://raw.githubusercontent.com/philippoehrlein/typo-and-paste/main/AI-SCHEMA.md" target="_blank">AI-SCHEMA.md</a> with your AI assistant
 2. Describe your specific use case and requirements
 3. The AI will generate a configuration following the schema
 4. Review and adjust the generated configuration as needed
