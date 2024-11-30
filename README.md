@@ -7,6 +7,26 @@
 
 ![Cover Typo & Paste](.github/typo-and-paste-cover.png)
 
+## Table of Contents
+
+- [Features](#features)
+- [Compatibility](#compatibility)
+- [Installation](#installation)
+  - [Composer](#composer)
+  - [Manual Installation](#manual-installation)
+- [Configuration](#configuration)
+  - [Access Points](#access-points)
+    - [Panel Toolbar Button](#1-panel-toolbar-button)
+    - [Writer Mark Button](#2-writer-mark-button)
+    - [Textarea Button](#3-textarea-button)
+    - [Keyboard Shortcuts](#4-keyboard-shortcuts)
+  - [Character Configuration](#character-configuration)
+  - [AI Support](#ai-support)
+    - [Using AI for Configuration](#using-ai-for-configuration)
+- [Translations](#translations)
+- [Development](#development)
+- [License](#license)
+
 ## Features
 
 - **Multi-Language Support**: Supports various languages for characters and the user interface.
