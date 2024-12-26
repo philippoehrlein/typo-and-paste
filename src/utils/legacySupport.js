@@ -8,7 +8,7 @@ export function legacyViewButtonMixin(Vue) {
   }
 
   Vue.mixin({
-    async mounted() {
+    mounted() {
       if (this.$options.name !== "k-header") return;
 
       const buttonGroup = this.$children.find(
