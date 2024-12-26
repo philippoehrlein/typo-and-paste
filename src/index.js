@@ -4,20 +4,16 @@ import { useEventListener } from "./composables/useEventListener";
 import { icons } from "./config/icons";
 import { textareaButtons } from "./config/textareaButtons";
 import { writerMarks } from "./config/writerMarks";
-import { createLegacyMixin } from "./utils/legacySupport";
-
-const isKirby5 = window.panel.plugins.viewButtons !== undefined;
+import { legacyViewButtonMixin } from "./utils/legacySupport";
 
 window.panel.plugin("philippoehrlein/typo-and-paste", {
   icons,
   components: {
     "k-typo-and-paste-dialog": TypoAndPasteDialog,
   },
-  viewButtons: isKirby5
-    ? {
-        "typo-and-paste": DropdownButton,
-      }
-    : undefined,
+  viewButtons: {
+    "typo-and-paste": DropdownButton,
+  },
   textareaButtons,
   writerMarks,
   use: [
@@ -30,6 +26,6 @@ window.panel.plugin("philippoehrlein/typo-and-paste", {
         });
       });
     },
-    createLegacyMixin(isKirby5),
+    legacyViewButtonMixin,
   ],
 });
