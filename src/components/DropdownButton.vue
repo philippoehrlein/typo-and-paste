@@ -1,7 +1,6 @@
 <template>
   <div>
     <k-button
-      ref="dropdownTrigger"
       :dropdown="true"
       :title="panel.t('philippoehrlein.typo-and-paste.buttonTitle')"
       variant="filled"
@@ -26,7 +25,6 @@ import { useCachedCharacters } from "../composables/useCachedCharacters";
 import CharacterSelector from "./CharacterSelector.vue";
 
 const panel = usePanel();
-const dropdownTrigger = ref();
 const dropdownContent = ref();
 const characters = ref([]);
 
