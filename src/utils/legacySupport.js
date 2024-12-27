@@ -1,28 +1,28 @@
 import DropdownButton from "../components/DropdownButton.vue";
 
-export function createLegacyMixin(isKirby5) {
+const isKirby5 = window.panel.plugins.viewButtons !== undefined;
+
+export function legacyViewButtonMixin(Vue) {
   if (isKirby5) {
-    return () => {};
+    return;
   }
 
-  return function (Vue) {
-    Vue.mixin({
-      async mounted() {
-        if (this.$options.name !== "k-header") return;
+  Vue.mixin({
+    mounted() {
+      if (this.$options.name !== "k-header") return;
 
-        const buttonGroup = this.$children.find(
-          (child) => child.$options.name === "k-button-group"
-        );
+      const buttonGroup = this.$children.find(
+        (child) => child.$options.name === "k-button-group"
+      );
 
-        if (!buttonGroup) return;
+      if (!buttonGroup) return;
 
-        const button = new Vue({
-          render: (h) => h(DropdownButton),
-        }).$mount();
+      const button = new Vue({
+        render: (h) => h(DropdownButton),
+      }).$mount();
 
-        buttonGroup.$el.prepend(button.$el);
-        this.$forceUpdate();
-      },
-    });
-  };
+      buttonGroup.$el.prepend(button.$el);
+      this.$forceUpdate();
+    },
+  });
 }

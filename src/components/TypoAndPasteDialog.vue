@@ -2,8 +2,8 @@
   <k-dialog
     :cancel-button="false"
     :submit-button="false"
+    :visible="true"
     size="medium"
-    :visible="visible"
     class="k-typo-and-paste-dialog"
     @cancel="emit('cancel')"
   >
@@ -19,13 +19,6 @@
 import { computed, ref, usePanel } from "kirbyuse";
 import { useCachedCharacters } from "../composables/useCachedCharacters";
 import CharacterSelector from "./CharacterSelector.vue";
-
-defineProps({
-  visible: {
-    default: false,
-    type: Boolean,
-  },
-});
 
 const emit = defineEmits(["cancel", "close", "input", "submit", "success"]);
 const panel = usePanel();
