@@ -29,7 +29,7 @@ const dropdownContent = ref();
 const characters = ref([]);
 
 const languageCode = computed(
-  () => panel.language?.code || panel.user?.language || "en"
+  () => panel.language?.code || panel.user?.language || "en",
 );
 
 (async () => {

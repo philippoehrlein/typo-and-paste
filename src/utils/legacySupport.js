@@ -12,17 +12,16 @@ export function legacyViewButtonMixin(Vue) {
       if (this.$options.name !== "k-header") return;
 
       const buttonGroup = this.$children.find(
-        (child) => child.$options.name === "k-button-group"
+        (child) => child.$options.name === "k-button-group",
       );
 
       if (!buttonGroup) return;
 
-      const button = new Vue({
-        render: (h) => h(DropdownButton),
-      }).$mount();
+      const ButtonConstructor = Vue.extend(DropdownButton);
+      const button = new ButtonConstructor({ parent: this });
+      button.$mount();
 
       buttonGroup.$el.prepend(button.$el);
-      this.$forceUpdate();
     },
   });
 }
