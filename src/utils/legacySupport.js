@@ -1,11 +1,12 @@
+import { isKirby5 } from "kirbyuse";
 import DropdownButton from "../components/DropdownButton.vue";
 
-const isKirby5 = window.panel.plugins.viewButtons !== undefined;
-
 export function legacyViewButtonMixin(Vue) {
-  if (isKirby5) {
+  if (isKirby5()) {
     return;
   }
+
+  let buttonComponent;
 
   Vue.mixin({
     mounted() {
@@ -18,10 +19,18 @@ export function legacyViewButtonMixin(Vue) {
       if (!buttonGroup) return;
 
       const ButtonConstructor = Vue.extend(DropdownButton);
-      const button = new ButtonConstructor({ parent: this });
-      button.$mount();
+      buttonComponent = new ButtonConstructor({ parent: this });
+      buttonComponent.$mount();
 
-      buttonGroup.$el.prepend(button.$el);
+      buttonGroup.$el.prepend(buttonComponent.$el);
+    },
+    beforeDestroy() {
+      if (this.$options.name !== "k-header") return;
+
+      if (buttonComponent) {
+        buttonComponent.$destroy();
+        buttonComponent = undefined;
+      }
     },
   });
 }
