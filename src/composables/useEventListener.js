@@ -20,7 +20,7 @@ export function useEventListener(target, event, listener, options) {
 
       cleanupFn = register(el, event, listener, options);
     },
-    { immediate: true, flush: "post" }
+    { immediate: true, flush: "post" },
   );
 
   const stop = () => {
