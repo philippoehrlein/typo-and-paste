@@ -1,7 +1,7 @@
 # Typo & Paste
 
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Version](https://img.shields.io/badge/version-2.2.6-blue)
+![Version](https://img.shields.io/badge/version-2.3.0-blue)
 
 **Typo & Paste** is a Kirby plugin that allows users to easily manage and insert special characters with multi-language support.
 
@@ -142,6 +142,7 @@ fields:
 ### Character Configuration
 
 Define custom characters in your config:
+Each character can either be defined as a simple string or as an object with value and a multilingual label. Labels are used for accessibility and shown as tooltips in the UI.
 
 ```php
 // site/config/config.php
@@ -154,7 +155,12 @@ return [
           'de' => 'Anführungszeichen',
         ],
         'lang' => 'fr', // Optional: Show only for French content
-        'characters' => ['«', '»', '‹', '›']
+        'characters' => [
+          ['value' => '«', 'label' => ['en' => 'Left guillemet', 'de' => 'Linkes Guillemets']],
+          ['value' => '»', 'label' => ['en' => 'Right guillemet', 'de' => 'Rechtes Guillemets']],
+          '‹', // also allowed: plain characters
+          '›'
+        ]
       ],
     ]
   ]

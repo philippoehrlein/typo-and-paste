@@ -24,13 +24,15 @@
         >
           <k-button
             v-for="char in section.characters"
-            :key="char"
+            :key="getCharValue(char)"
             ref="characterButtons"
             class="tap-characters__item"
             tabindex="0"
-            @click="copyToClipboard(char)"
+            role="menuitem"
+            :title="getCharTitle(char)"
+            @click="copyToClipboard(getCharValue(char))"
           >
-            {{ char }}
+            {{ getCharValue(char) }}
           </k-button>
         </div>
       </section>
@@ -103,6 +105,40 @@ onMounted(async () => {
   // Set the focus on the first button
   characterButtons.value?.[0]?.$el?.focus();
 });
+
+/**
+ * Bestimmt den Wert eines Zeichens, unabhängig ob es ein String oder Objekt ist
+ * @param {string|object} char - Das Zeichen
+ * @returns {string} Der Wert des Zeichens
+ */
+function getCharValue(char) {
+  if (typeof char === 'string') {
+    return char;
+  }
+  return char.value || char;
+}
+
+/**
+ * Bestimmt den Titel/die Beschreibung eines Zeichens für Barrierefreiheit
+ * @param {string|object} char - Das Zeichen
+ * @returns {string} Der Titel oder die Beschreibung des Zeichens
+ */
+function getCharTitle(char) {
+  if (typeof char === 'string') {
+    return char;
+  }
+
+  
+  // Das neue Format hat möglicherweise ein label-Feld
+  if (char.label) {
+    if (isObject(char.label)) {
+      return char.label[panel.user.language] || char.label.en || getCharValue(char);
+    }
+    return char.label;
+  }
+  
+  return getCharValue(char);
+}
 
 /**
  * Copies a character to the clipboard and shows a notification.

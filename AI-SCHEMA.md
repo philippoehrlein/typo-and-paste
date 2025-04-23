@@ -49,8 +49,27 @@ return [
 ### characters (required)
 
 - Type: Array
-- Description: List of special characters
-- Format: Array of strings, each containing a single character or symbol
+- Description: List of special characters. Each character can be either:
+  - A string containing a single character or symbol
+  - An object containing:
+    - `value`: the character or symbol as a string
+    - `label`: an optional object with language codes as keys and human-readable names as values
+
+- Format:
+  ```php
+  // Simple character
+  'characters' => ['±']
+
+  // Or character with labels
+  'characters' => [
+      ['value' => '±', 'label' => ['en' => 'Plus-minus sign', 'de' => 'Plusminuszeichen']],
+      ['value' => '×', 'label' => ['en' => 'Multiplication sign']]
+  ]
+  ```
+
+- Notes:
+  - `label` values are useful for accessibility and will be used as tooltips or `aria-label` values.
+  - You can mix simple strings and full objects within the same array.
 
 ## Configuration Guidelines
 
@@ -73,5 +92,18 @@ When creating character groups, consider the following:
         'fr' => 'Symboles Mathématiques'
     ],
     'characters' => ['±', '×', '÷', '≠', '≤', '≥']
+]
+```
+
+```php
+[
+    'label' => [
+        'en' => 'Legal Symbols',
+        'de' => 'Rechtliche Zeichen'
+    ],
+    'characters' => [
+        ['value' => '©', 'label' => ['en' => 'Copyright sign', 'de' => 'Copyrightzeichen']],
+        ['value' => '®', 'label' => ['en' => 'Registered trademark']]
+    ]
 ]
 ```
