@@ -23,16 +23,16 @@
           @keydown="handleKeyNavigation"
         >
           <k-button
-            v-for="char in section.characters"
-            :key="getCharValue(char)"
+            v-for="item in section.characters"
+            :key="item.value"
             ref="characterButtons"
             class="tap-characters__item"
             tabindex="0"
             role="menuitem"
-            :title="getCharTitle(char)"
-            @click="copyToClipboard(getCharValue(char))"
+            :title="item.label"
+            @click="copyToClipboard(item.value)"
           >
-            {{ getCharValue(char) }}
+            {{ item.value }}
           </k-button>
         </div>
       </section>
@@ -80,20 +80,42 @@ const GRID_COLUMNS = props.type === "dialog" ? 12 : 8; // Number of columns in t
 
 /**
  * Computes the characters to display in the panel.
- * @returns {Array<{label: string, lang?: string, characters: string[]}>} An array of character groups with labels and characters.
  */
 const resolvedCharacters = computed(() => {
-  return props.characters.map((group) => {
+  return props.characters.map((section) => {
     let label;
 
-    if (isObject(group.label)) {
-      label = group.label[panel.user.language] || group.label.en;
+    if (isObject(section.label)) {
+      label = section.label[panel.user.language] || section.label.en;
     } else {
-      label = group.label;
+      label = section.label;
     }
 
+    const characters = section.characters.map((character) => {
+      let value = character;
+      let label = value;
+
+      if (isObject(character)) {
+        if (character.value) {
+          value = character.value;
+        }
+
+        if (character.label) {
+          label = isObject(character.label)
+            ? character.label[panel.user.language] || char.label.en || value
+            : character.label;
+        }
+      }
+
+      return {
+        label,
+        value,
+      };
+    });
+
     return {
-      ...group,
+      ...section,
+      characters,
       label,
     };
   });
@@ -105,40 +127,6 @@ onMounted(async () => {
   // Set the focus on the first button
   characterButtons.value?.[0]?.$el?.focus();
 });
-
-/**
- * Bestimmt den Wert eines Zeichens, unabhängig ob es ein String oder Objekt ist
- * @param {string|object} char - Das Zeichen
- * @returns {string} Der Wert des Zeichens
- */
-function getCharValue(char) {
-  if (typeof char === 'string') {
-    return char;
-  }
-  return char.value || char;
-}
-
-/**
- * Bestimmt den Titel/die Beschreibung eines Zeichens für Barrierefreiheit
- * @param {string|object} char - Das Zeichen
- * @returns {string} Der Titel oder die Beschreibung des Zeichens
- */
-function getCharTitle(char) {
-  if (typeof char === 'string') {
-    return char;
-  }
-
-  
-  // Das neue Format hat möglicherweise ein label-Feld
-  if (char.label) {
-    if (isObject(char.label)) {
-      return char.label[panel.user.language] || char.label.en || getCharValue(char);
-    }
-    return char.label;
-  }
-  
-  return getCharValue(char);
-}
 
 /**
  * Copies a character to the clipboard and shows a notification.
@@ -170,7 +158,7 @@ function handleKeyNavigation(event) {
 
   const sections = charactersSections.value;
   const currentSection = document.activeElement.closest(
-    ".tap-characters__section",
+    ".tap-characters__section"
   );
   if (!currentSection) return;
 
