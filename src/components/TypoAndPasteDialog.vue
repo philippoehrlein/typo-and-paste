@@ -10,10 +10,20 @@
     @cancel="emit('cancel')"
   >
     <h2 id="typo-and-paste-dialog-title" class="sr-only">
-      {{ panel.t('philippoehrlein.typo-and-paste.dialogTitle', 'Special Characters') }}
+      {{
+        panel.t(
+          "philippoehrlein.typo-and-paste.dialogTitle",
+          "Special Characters",
+        )
+      }}
     </h2>
     <p class="sr-only">
-      {{ panel.t('philippoehrlein.typo-and-paste.dialogDescription', 'Up and down to navigate between sections, left and right to navigate between characters.') }}
+      {{
+        panel.t(
+          "philippoehrlein.typo-and-paste.dialogDescription",
+          "Up and down to navigate between sections, left and right to navigate between characters.",
+        )
+      }}
     </p>
     <CharacterSelector
       :characters="characters"

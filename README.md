@@ -141,8 +141,7 @@ fields:
 
 ### Character Configuration
 
-Define custom characters in your config:
-Each character can either be defined as a simple string or as an object with value and a multilingual label. Labels are used for accessibility and shown as tooltips in the UI.
+Define custom characters in your config: Each character can either be defined as a simple string or as an object with value and a multilingual label. Labels are used for accessibility and shown as tooltips in the UI.
 
 ```php
 // site/config/config.php
