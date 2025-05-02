@@ -86,7 +86,7 @@ const resolvedCharacters = computed(() => {
     let label;
 
     if (isObject(section.label)) {
-      label = section.label[panel.user.language] || section.label.en;
+      label = section.label[panel.user?.language || "en"];
     } else {
       label = section.label;
     }
@@ -102,7 +102,7 @@ const resolvedCharacters = computed(() => {
 
         if (character.label) {
           label = isObject(character.label)
-            ? character.label[panel.user.language] || char.label.en || value
+            ? character.label[panel.user?.language || "en"] || value
             : character.label;
         }
       }
