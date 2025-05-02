@@ -158,7 +158,7 @@ function handleKeyNavigation(event) {
 
   const sections = charactersSections.value;
   const currentSection = document.activeElement.closest(
-    ".tap-characters__section"
+    ".tap-characters__section",
   );
   if (!currentSection) return;
 
