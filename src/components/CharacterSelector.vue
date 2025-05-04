@@ -13,7 +13,7 @@
         class="tap-characters__section"
       >
         <h3 v-if="section.label">
-          {{ section.label }}
+          {{ section.label }} 
         </h3>
         <div
           class="tap-characters__items"
@@ -37,6 +37,20 @@
         </div>
       </section>
     </template>
+    <section
+      v-if="enableSearch"
+      :key="resolvedCharacters.length"
+      class="search-section"
+    >
+      <k-button
+        icon="search"
+        class="tap-characters__item"
+        size="sm"
+        @click="openSearchDialog"
+      >
+        Search 
+      </k-button>
+    </section>
   </div>
 </template>
 
@@ -76,6 +90,8 @@ const emit = defineEmits(["close"]);
 const panel = usePanel();
 const charactersSections = ref();
 const characterButtons = ref();
+const enableSearch = ref(false);
+const searchDialog = ref();
 const GRID_COLUMNS = props.type === "dialog" ? 12 : 8; // Number of columns in the grid
 
 /**
@@ -124,6 +140,13 @@ const resolvedCharacters = computed(() => {
 onMounted(async () => {
   await nextTick();
 
+  const response = await window.panel.api.get("/typo-and-paste/enable-search");
+
+  searchDialog.value = window.panel.plugins.components['k-typo-search-and-paste-dialog'];
+  if(searchDialog.value && response.value) {
+    enableSearch.value = response.value;
+  }
+
   // Set the focus on the first button
   characterButtons.value?.[0]?.$el?.focus();
 });
@@ -158,7 +181,7 @@ function handleKeyNavigation(event) {
 
   const sections = charactersSections.value;
   const currentSection = document.activeElement.closest(
-    ".tap-characters__section",
+    ".tap-characters__section, .search-section",
   );
   if (!currentSection) return;
 
@@ -221,8 +244,12 @@ function handleKeyNavigation(event) {
     case "Space":
       event.preventDefault();
       if (currentIndex !== -1) {
-        const character = buttons[currentIndex].textContent.trim();
-        copyToClipboard(character);
+        if (currentSection.classList.contains('search-section')) {
+          openSearchDialog();
+        } else {
+          const character = buttons[currentIndex].textContent.trim();
+          copyToClipboard(character);
+        }
       }
       break;
 
@@ -232,7 +259,11 @@ function handleKeyNavigation(event) {
         // Shift+Tab -> Previous section
         nextSectionIndex = currentSectionIndex - 1;
         if (nextSectionIndex < 0) {
-          focusLastButtonInSection(sections.at(-1));
+          if (enableSearch.value) {
+            document.querySelector('.search-section .tap-characters__item')?.focus();
+          } else {
+            focusLastButtonInSection(sections.at(-1));
+          }
         } else {
           focusLastButtonInSection(sections[nextSectionIndex]);
         }
@@ -240,7 +271,11 @@ function handleKeyNavigation(event) {
         // Tab -> Next section
         nextSectionIndex = currentSectionIndex + 1;
         if (nextSectionIndex >= sections.length) {
-          focusFirstButtonInSection(sections[0]);
+          if (enableSearch.value) {
+            document.querySelector('.search-section .tap-characters__item')?.focus();
+          } else {
+            focusFirstButtonInSection(sections[0]);
+          }
         } else {
           focusFirstButtonInSection(sections[nextSectionIndex]);
         }
@@ -268,6 +303,12 @@ function focusFirstButtonInSection(section) {
 function focusLastButtonInSection(section) {
   const buttons = [...section.querySelectorAll(".tap-characters__item")];
   buttons.at(-1)?.focus();
+}
+
+function openSearchDialog() {
+  window.panel.dialog.open({
+    component: "k-typo-search-and-paste-dialog",
+  });
 }
 </script>
 
@@ -304,5 +345,15 @@ function focusLastButtonInSection(section) {
 
 .tap-characters__item:hover {
   background-color: var(--dropdown-color-hr);
+}
+
+.search-section {
+  margin-top: var(--spacing-3);
+  padding-top: var(--spacing-3);
+  border-top: 1px solid var(--dropdown-color-hr);
+}
+
+.search-section .k-button {
+  width: 100%;
 }
 </style>
