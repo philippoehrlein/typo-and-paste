@@ -1,7 +1,7 @@
 # Typo & Paste
 
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Version](https://img.shields.io/badge/version-2.3.1-blue)
+![Version](https://img.shields.io/badge/version-2.4.0-blue)
 
 **Typo & Paste** is a Kirby plugin that allows users to easily manage and insert special characters with multi-language support.
 
@@ -24,6 +24,7 @@
   - [AI Support](#ai-support)
     - [Using AI for Configuration](#using-ai-for-configuration)
 - [Translations](#translations)
+- [Search](#typ-search-and-paste)
 - [Development](#development)
 - [License](#license)
 
@@ -200,6 +201,21 @@ return [
   ]
 ];
 ```
+
+## Search
+
+![Typo, Search and Paste](.github/typo-search-and-paste.png)
+Extend Typo & Paste with a searchable interface for special characters. Simply install Typo, Search & Paste — and you’re ready to go.
+
+### Composer
+
+```bash
+composer require philippoehrlein/typo-search-and-paste
+```
+
+### Github
+
+[Typo, Search & Paste](https://github.com/philippoehrlein/typo-search-and-paste)
 
 ## Development
 

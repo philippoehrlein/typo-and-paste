@@ -91,7 +91,6 @@ const panel = usePanel();
 const charactersSections = ref();
 const characterButtons = ref();
 const enableSearch = ref(false);
-const searchDialog = ref();
 const GRID_COLUMNS = props.type === "dialog" ? 12 : 8; // Number of columns in the grid
 
 /**
@@ -140,15 +139,11 @@ const resolvedCharacters = computed(() => {
 onMounted(async () => {
   await nextTick();
 
-  const response = await window.panel.api.get("/typo-and-paste/enable-search");
-
-  searchDialog.value = window.panel.plugins.components['k-typo-search-and-paste-dialog'];
-  if(searchDialog.value && response.value) {
-    enableSearch.value = response.value;
-  }
-
   // Set the focus on the first button
   characterButtons.value?.[0]?.$el?.focus();
+
+  enableSearch.value = window.panel.plugins.components['k-typo-search-and-paste-dialog'] !== undefined;
+
 });
 
 /**
