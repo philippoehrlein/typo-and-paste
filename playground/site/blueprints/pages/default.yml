@@ -4,3 +4,32 @@ buttons:
   - typo-and-paste
   - preview
   - settings
+
+fields:
+  textarea:
+    label: Textarea
+    type: textarea
+    buttons:
+      - bold
+      - italic
+      - code
+      - '|'
+      - typo-and-paste
+  writer:
+    label: Writer
+    type: writer
+    toolbar:
+      inline: true
+      marks:
+        - bold
+        - italic
+        - underline
+        - strike
+        - code
+        - '|'
+        - link
+        - email
+        - '|'
+        - clear
+        - '|'
+        - typo-and-paste
