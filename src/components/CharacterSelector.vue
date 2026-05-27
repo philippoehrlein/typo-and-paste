@@ -13,7 +13,7 @@
         class="tap-characters__section"
       >
         <h3 v-if="section.label">
-          {{ section.label }} 
+          {{ section.label }}
         </h3>
         <div
           class="tap-characters__items"
@@ -48,7 +48,7 @@
         size="sm"
         @click="openSearchDialog"
       >
-        Search 
+        Search
       </k-button>
     </section>
   </div>
@@ -143,8 +143,9 @@ onMounted(async () => {
   // Set the focus on the first button
   characterButtons.value?.[0]?.$el?.focus();
 
-  enableSearch.value = window.panel.plugins.components['k-typo-search-and-paste-dialog'] !== undefined;
-
+  enableSearch.value =
+    window.panel.plugins.components["k-typo-search-and-paste-dialog"] !==
+    undefined;
 });
 
 /**
@@ -240,7 +241,7 @@ function handleKeyNavigation(event) {
     case "Space":
       event.preventDefault();
       if (currentIndex !== -1) {
-        if (currentSection.classList.contains('search-section')) {
+        if (currentSection.classList.contains("search-section")) {
           openSearchDialog();
         } else {
           const character = buttons[currentIndex].textContent.trim();
@@ -256,7 +257,9 @@ function handleKeyNavigation(event) {
         nextSectionIndex = currentSectionIndex - 1;
         if (nextSectionIndex < 0) {
           if (enableSearch.value) {
-            document.querySelector('.search-section .tap-characters__item')?.focus();
+            document
+              .querySelector(".search-section .tap-characters__item")
+              ?.focus();
           } else {
             focusLastButtonInSection(sections.at(-1));
           }
@@ -268,7 +271,9 @@ function handleKeyNavigation(event) {
         nextSectionIndex = currentSectionIndex + 1;
         if (nextSectionIndex >= sections.length) {
           if (enableSearch.value) {
-            document.querySelector('.search-section .tap-characters__item')?.focus();
+            document
+              .querySelector(".search-section .tap-characters__item")
+              ?.focus();
           } else {
             focusFirstButtonInSection(sections[0]);
           }

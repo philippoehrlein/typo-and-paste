@@ -1,7 +1,7 @@
 {
   "name": "philippoehrlein/typo-and-paste",
   "type": "module",
-  "version": "3.0.0",
+  "version": "3.0.0-beta.1",
   "private": true,
   "description": "A Kirby plugin for managing and inserting special characters with multi-language support.",
   "homepage": "https://github.com/philippoehrlein/typo-and-paste",
