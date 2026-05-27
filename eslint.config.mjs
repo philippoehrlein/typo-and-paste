@@ -9,7 +9,7 @@ export default antfu({
         styles: false,
       },
     },
-    vueVersion: 2,
+    vueVersion: 3,
   },
   ignores: ["**/assets/**", "**/vendor/**", "index.js"],
 }).append({

@@ -55,7 +55,8 @@
 </template>
 
 <script setup>
-import { computed, nextTick, onMounted, ref, usePanel } from "kirbyuse";
+import { usePanel } from "kirbyuse";
+import { computed, nextTick, onMounted, ref } from "vue";
 import { isObject } from "../utils/helpers";
 
 const props = defineProps({

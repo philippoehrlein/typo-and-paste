@@ -4,7 +4,6 @@ import { useEventListener } from "./composables/useEventListener";
 import { icons } from "./config/icons";
 import { textareaButtons } from "./config/textareaButtons";
 import { writerMarks } from "./config/writerMarks";
-import { legacyViewButtonMixin } from "./utils/legacySupport";
 
 window.panel.plugin("philippoehrlein/typo-and-paste", {
   icons,
@@ -26,6 +25,5 @@ window.panel.plugin("philippoehrlein/typo-and-paste", {
         });
       });
     },
-    legacyViewButtonMixin,
   ],
 });

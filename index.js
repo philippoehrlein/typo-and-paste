@@ -1,1 +1,288 @@
-(function(){"use strict";const P=window.Vue;function k(){return window.panel}const E=()=>window.panel.plugins.viewButtons!==void 0,{computed:S,customRef:ce,defineAsyncComponent:ie,defineComponent:le,effectScope:ue,getCurrentInstance:pe,getCurrentScope:M,h:de,inject:fe,isProxy:_e,isReactive:ge,isReadonly:he,isRef:ye,isShallow:Ce,markRaw:me,nextTick:V,onActivated:ve,onBeforeMount:we,onBeforeUnmount:be,onBeforeUpdate:ke,onDeactivated:Se,onErrorCaptured:xe,onMounted:L,onRenderTracked:Re,onRenderTriggered:$e,onScopeDispose:O,onServerPrefetch:De,onUnmounted:Te,onUpdated:Be,provide:Ae,proxyRefs:Ie,reactive:Pe,readonly:Ee,ref:C,shallowReactive:Me,shallowReadonly:Ve,shallowRef:Le,toRaw:Oe,toRef:Ue,toRefs:qe,triggerRef:je,unref:U,useAttrs:Fe,useCssModule:Ke,useCssVars:He,useListeners:ze,useSlots:Ne,watch:q,watchEffect:Ge,watchPostEffect:We,watchSyncEffect:Ze}=P;let w;async function $(){if(w)return w;try{w=await window.panel.api.get("typo-and-paste/characters")}catch(r){console.error("Error loading characters:",r),w=[]}return w}function x(r){return Object.prototype.toString.call(r)==="[object Object]"}function R(r,e,n,t,a,l,c,g){var d=typeof r=="function"?r.options:r;return e&&(d.render=e,d.staticRenderFns=n,d._compiled=!0),l&&(d._scopeId="data-v-"+l),{exports:r,options:d}}const j={__name:"CharacterSelector",props:{characters:{type:Array,required:!0},languageCode:{type:String,required:!0},type:{type:String,default:"dropdown"}},emits:["close"],setup(r,{emit:e}){const n=r,t=k(),a=C(),l=C(),c=C(!1),g=n.type==="dialog"?12:8,d=S(()=>n.characters.map(o=>{var _;let s;x(o.label)?s=o.label[((_=t.user)==null?void 0:_.language)||"en"]:s=o.label;const f=o.characters.map(i=>{var p;let h=i,u=h;return x(i)&&(i.value&&(h=i.value),i.label&&(u=x(i.label)?i.label[((p=t.user)==null?void 0:p.language)||"en"]||h:i.label)),{label:u,value:h}});return{...o,characters:f,label:s}}));L(async()=>{var o,s,f;await V(),(f=(s=(o=l.value)==null?void 0:o[0])==null?void 0:s.$el)==null||f.focus(),c.value=window.panel.plugins.components["k-typo-search-and-paste-dialog"]!==void 0});function y(o){navigator.clipboard.writeText(o),n.type==="dialog"?t.dialog.close():e("close"),t.notification.info({message:t.t("philippoehrlein.typo-and-paste.copiedMessage",{character:o}),icon:void 0})}function b(o){var A,I;o.key!=="Enter"&&o.stopPropagation();const s=a.value,f=document.activeElement.closest(".tap-characters__section, .search-section");if(!f)return;const _=[...f.querySelectorAll(".tap-characters__item")],i=_.indexOf(document.activeElement),h=s.indexOf(f);if(i===-1&&h===-1)return;let u,p;switch(o.key){case"ArrowRight":o.preventDefault(),u=i+1,u<_.length&&_[u].focus();break;case"ArrowLeft":o.preventDefault(),u=i-1,u>=0&&_[u].focus();break;case"ArrowDown":o.preventDefault(),u=i+g,u>=_.length?(p=h+1,p<s.length&&m(s[p])):_[u].focus();break;case"ArrowUp":o.preventDefault(),u=i-g,u<0?(p=h-1,p>=0&&v(s[p])):_[u].focus();break;case"Enter":case"Space":if(o.preventDefault(),i!==-1)if(f.classList.contains("search-section"))B();else{const se=_[i].textContent.trim();y(se)}break;case"Tab":o.preventDefault(),o.shiftKey?(p=h-1,p<0?c.value?(A=document.querySelector(".search-section .tap-characters__item"))==null||A.focus():v(s.at(-1)):v(s[p])):(p=h+1,p>=s.length?c.value?(I=document.querySelector(".search-section .tap-characters__item"))==null||I.focus():m(s[0]):m(s[p]));break;case"Escape":e("close");break}}function m(o){var s;(s=o.querySelector(".tap-characters__item"))==null||s.focus()}function v(o){var f;(f=[...o.querySelectorAll(".tap-characters__item")].at(-1))==null||f.focus()}function B(){window.panel.dialog.open({component:"k-typo-search-and-paste-dialog"})}return{__sfc:!0,props:n,emit:e,panel:t,charactersSections:a,characterButtons:l,enableSearch:c,GRID_COLUMNS:g,resolvedCharacters:d,copyToClipboard:y,handleKeyNavigation:b,focusFirstButtonInSection:m,focusLastButtonInSection:v,openSearchDialog:B}}};var F=function(){var e=this,n=e._self._c,t=e._self._setupProxy;return e.characters.length?n("div",{staticClass:"tap-characters",class:[e.type!=="dialog"&&"tap-characters--dropdown"],attrs:{tabindex:"-1"}},[e._l(t.resolvedCharacters,function(a,l){return[!a.lang||a.lang===e.languageCode?n("section",{key:l,ref:"charactersSections",refInFor:!0,staticClass:"tap-characters__section"},[a.label?n("h3",[e._v(" "+e._s(a.label)+" ")]):e._e(),n("div",{staticClass:"tap-characters__items",style:{"--grid-columns":t.GRID_COLUMNS},on:{keydown:t.handleKeyNavigation}},e._l(a.characters,function(c){return n("k-button",{key:c.value,ref:"characterButtons",refInFor:!0,staticClass:"tap-characters__item",attrs:{tabindex:"0",role:"menuitem",title:c.label},on:{click:function(g){return t.copyToClipboard(c.value)}}},[e._v(" "+e._s(c.value)+" ")])}),1)]):e._e()]}),t.enableSearch?n("section",{key:t.resolvedCharacters.length,staticClass:"search-section"},[n("k-button",{staticClass:"tap-characters__item",attrs:{icon:"search",size:"sm"},on:{click:t.openSearchDialog}},[e._v(" Search ")])],1):e._e()],2):e._e()},K=[],H=R(j,F,K,!1,null,"d82b1daa");const D=H.exports,z={__name:"DropdownButton",setup(r){const e=k(),n=C(),t=C([]),a=C(!1),l=S(()=>{var g,d;return((g=e.language)==null?void 0:g.code)||((d=e.user)==null?void 0:d.language)||"en"});(async()=>t.value=await $())();function c(){n.value.toggle(),a.value=!a.value}return{__sfc:!0,panel:e,dropdownContent:n,characters:t,isOpen:a,languageCode:l,toggle:c,CharacterSelector:D}}};var N=function(){var e=this,n=e._self._c,t=e._self._setupProxy;return n("div",[n("k-button",{attrs:{dropdown:!0,title:t.panel.t("philippoehrlein.typo-and-paste.buttonTitle"),variant:"filled",size:"sm",icon:"typo-and-paste","aria-haspopup":"menu","aria-expanded":t.isOpen},on:{click:function(a){return t.toggle()}}}),n("k-dropdown-content",{ref:"dropdownContent",attrs:{"align-x":"end",role:"menu"}},[n(t.CharacterSelector,{attrs:{characters:t.characters,"language-code":t.languageCode},on:{close:function(a){return t.toggle()}}})],1)],1)},G=[],W=R(z,N,G,!1,null,null);const T=W.exports,Z={__name:"TypoAndPasteDialog",emits:["cancel","close","input","submit","success"],setup(r,{emit:e}){const n=k(),t=C([]),a=S(()=>{var l,c;return((l=n.language)==null?void 0:l.code)||((c=n.user)==null?void 0:c.language)||"en"});return(async()=>t.value=await $())(),{__sfc:!0,emit:e,panel:n,characters:t,languageCode:a,CharacterSelector:D}}};var J=function(){var e=this,n=e._self._c,t=e._self._setupProxy;return n("k-dialog",{staticClass:"k-typo-and-paste-dialog",attrs:{"cancel-button":!1,"submit-button":!1,visible:!0,size:"medium",role:"dialog","aria-labelledby":"typo-and-paste-dialog-title"},on:{cancel:function(a){return t.emit("cancel")}}},[n("h2",{staticClass:"sr-only",attrs:{id:"typo-and-paste-dialog-title"}},[e._v(" "+e._s(t.panel.t("philippoehrlein.typo-and-paste.dialogTitle","Special Characters"))+" ")]),n("p",{staticClass:"sr-only"},[e._v(" "+e._s(t.panel.t("philippoehrlein.typo-and-paste.dialogDescription","Up and down to navigate between sections, left and right to navigate between characters."))+" ")]),n(t.CharacterSelector,{attrs:{characters:t.characters,"language-code":t.languageCode,type:"dialog"}})],1)},Q=[],X=R(Z,J,Q,!1,null,null);const Y=X.exports;function ee(r,e,n,t){let a;const l=()=>{a==null||a(),a=void 0},c=(y,b,m,v)=>(y.addEventListener(b,m,v),()=>y.removeEventListener(b,m,v)),g=q(()=>te(r),y=>{l(),y&&(a=c(y,e,n,t))},{immediate:!0,flush:"post"}),d=()=>{g(),l()};return M()&&O(d),d}function te(r){const e=U(r);return(e==null?void 0:e.$el)??e}const ne={"typo-and-paste":'<path d="M10.931 22C9.57512 22 8.37089 21.7948 7.31831 21.3845C6.28357 20.9563 5.47183 20.3498 4.8831 19.5648C4.29437 18.7798 4 17.8432 4 16.7549C4 15.5239 4.31221 14.5427 4.93662 13.8113C5.56103 13.062 6.33709 12.5446 7.26479 12.2592V12.1521C6.46197 11.7596 5.78404 11.2512 5.23099 10.6268C4.69577 9.98451 4.42817 9.11925 4.42817 8.03098C4.42817 6.94272 4.70469 6.02394 5.25775 5.27465C5.82864 4.52535 6.62254 3.96338 7.63944 3.58873C8.65634 3.19624 9.84272 3 11.1986 3C12.5188 3 13.6784 3.20516 14.6775 3.61549C15.6944 4.02582 16.4883 4.61455 17.0592 5.38169C17.63 6.13099 17.9155 7.01408 17.9155 8.03098V8.48591H15.5606V8.19155C15.5427 7.46009 15.3376 6.86244 14.9451 6.39859C14.5704 5.9169 14.0531 5.56901 13.393 5.35493C12.7507 5.123 12.0014 5.00704 11.1451 5.00704C10.5742 5.00704 10.03 5.06948 9.51268 5.19437C8.99531 5.30141 8.53146 5.47981 8.12113 5.72958C7.72864 5.97934 7.41643 6.30939 7.18451 6.71972C6.95258 7.11221 6.83662 7.5939 6.83662 8.16479C6.83662 8.89624 7.01502 9.50282 7.37183 9.98451C7.72864 10.4484 8.19249 10.7962 8.76338 11.0282C9.35211 11.2601 9.98545 11.3761 10.6634 11.3761H12.3225V13.3296H10.7169C10.0033 13.3296 9.31643 13.4188 8.65634 13.5972C7.99624 13.7756 7.46103 14.1056 7.0507 14.5873C6.65822 15.0512 6.46197 15.7202 6.46197 16.5944C6.46197 17.3972 6.6493 18.0484 7.02394 18.5479C7.41643 19.0474 7.96056 19.4131 8.65634 19.6451C9.36995 19.877 10.1906 19.993 11.1183 19.993C12.1174 19.993 12.9469 19.8681 13.607 19.6183C14.2671 19.3685 14.7577 18.985 15.0789 18.4676C15.4 17.9502 15.5606 17.3169 15.5606 16.5676V11.3761H20.1901V13.3563H17.9155V16.4873C17.9155 17.6648 17.6479 18.6639 17.1127 19.4845C16.5953 20.3052 15.8192 20.9296 14.7845 21.3577C13.7498 21.7859 12.4653 22 10.931 22Z" />'},ae={"typo-and-paste":{icon:"typo-and-paste",label:"Typo & Paste",click(){window.panel.dialog.open({component:"k-typo-and-paste-dialog"})}}},oe={"typo-and-paste":{get button(){return{icon:"typo-and-paste",label:"Typo & Paste"}},commands(){return()=>{window.panel.dialog.open({component:"k-typo-and-paste-dialog"})}},get name(){return"typo-and-paste"}}};function re(r){if(E())return;let e;r.mixin({mounted(){if(this.$options.name!=="k-header")return;const n=this.$children.find(a=>a.$options.name==="k-button-group");if(!n)return;const t=r.extend(T);e=new t({parent:this}),e.$mount(),n.$el.prepend(e.$el)},beforeDestroy(){this.$options.name==="k-header"&&e&&(e.$destroy(),e=void 0)}})}window.panel.plugin("philippoehrlein/typo-and-paste",{icons:ne,components:{"k-typo-and-paste-dialog":Y},viewButtons:{"typo-and-paste":T},textareaButtons:ae,writerMarks:oe,use:[function(){ee(window,"keydown",r=>{!r.altKey||r.code!=="KeyT"||window.panel.dialog.open({component:"k-typo-and-paste-dialog"})})},re]})})();
+import { Fragment as e, computed as t, createBlock as n, createCommentVNode as r, createElementBlock as i, createElementVNode as a, createTextVNode as o, createVNode as s, getCurrentScope as c, nextTick as l, normalizeClass as u, normalizeStyle as d, onMounted as f, onScopeDispose as p, openBlock as m, ref as h, renderList as g, resolveComponent as _, toDisplayString as v, unref as y, unref as b, watch as x, withCtx as S } from "vue";
+//#region node_modules/kirbyuse/dist/composables-Y8gb-rex.mjs
+function C() {
+	return window.panel;
+}
+//#endregion
+//#region src/composables/useCachedCharacters.js
+var w;
+async function T() {
+	if (w) return w;
+	try {
+		w = await window.panel.api.get("typo-and-paste/characters");
+	} catch (e) {
+		console.error("Error loading characters:", e), w = [];
+	}
+	return w;
+}
+//#endregion
+//#region src/utils/helpers.js
+function E(e) {
+	return Object.prototype.toString.call(e) === "[object Object]";
+}
+//#endregion
+//#region \0plugin-vue:export-helper
+var D = (e, t) => {
+	let n = e.__vccOpts || e;
+	for (let [e, r] of t) n[e] = r;
+	return n;
+}, O = { key: 0 }, k = /* @__PURE__ */ D({
+	__name: "CharacterSelector",
+	props: {
+		characters: {
+			type: Array,
+			required: !0
+		},
+		languageCode: {
+			type: String,
+			required: !0
+		},
+		type: {
+			type: String,
+			default: "dropdown"
+		}
+	},
+	emits: ["close"],
+	setup(c, { emit: p }) {
+		let b = c, x = p, w = C(), T = h(), D = h(), k = h(!1), A = b.type === "dialog" ? 12 : 8, j = t(() => b.characters.map((e) => {
+			let t;
+			t = E(e.label) ? e.label[w.user?.language || "en"] : e.label;
+			let n = e.characters.map((e) => {
+				let t = e, n = t;
+				return E(e) && (e.value && (t = e.value), e.label && (n = E(e.label) ? e.label[w.user?.language || "en"] || t : e.label)), {
+					label: n,
+					value: t
+				};
+			});
+			return {
+				...e,
+				characters: n,
+				label: t
+			};
+		}));
+		f(async () => {
+			await l(), D.value?.[0]?.$el?.focus(), k.value = window.panel.plugins.components["k-typo-search-and-paste-dialog"] !== void 0;
+		});
+		function M(e) {
+			navigator.clipboard.writeText(e), b.type === "dialog" ? w.dialog.close() : x("close"), w.notification.info({
+				message: w.t("philippoehrlein.typo-and-paste.copiedMessage", { character: e }),
+				icon: void 0
+			});
+		}
+		function N(e) {
+			e.key !== "Enter" && e.stopPropagation();
+			let t = T.value, n = document.activeElement.closest(".tap-characters__section, .search-section");
+			if (!n) return;
+			let r = [...n.querySelectorAll(".tap-characters__item")], i = r.indexOf(document.activeElement), a = t.indexOf(n);
+			if (i === -1 && a === -1) return;
+			let o, s;
+			switch (e.key) {
+				case "ArrowRight":
+					e.preventDefault(), o = i + 1, o < r.length && r[o].focus();
+					break;
+				case "ArrowLeft":
+					e.preventDefault(), o = i - 1, o >= 0 && r[o].focus();
+					break;
+				case "ArrowDown":
+					e.preventDefault(), o = i + A, o >= r.length ? (s = a + 1, s < t.length && P(t[s])) : r[o].focus();
+					break;
+				case "ArrowUp":
+					e.preventDefault(), o = i - A, o < 0 ? (s = a - 1, s >= 0 && F(t[s])) : r[o].focus();
+					break;
+				case "Enter":
+				case "Space":
+					e.preventDefault(), i !== -1 && (n.classList.contains("search-section") ? I() : M(r[i].textContent.trim()));
+					break;
+				case "Tab":
+					e.preventDefault(), e.shiftKey ? (s = a - 1, s < 0 ? k.value ? document.querySelector(".search-section .tap-characters__item")?.focus() : F(t.at(-1)) : F(t[s])) : (s = a + 1, s >= t.length ? k.value ? document.querySelector(".search-section .tap-characters__item")?.focus() : P(t[0]) : P(t[s]));
+					break;
+				case "Escape":
+					x("close");
+					break;
+			}
+		}
+		function P(e) {
+			e.querySelector(".tap-characters__item")?.focus();
+		}
+		function F(e) {
+			[...e.querySelectorAll(".tap-characters__item")].at(-1)?.focus();
+		}
+		function I() {
+			window.panel.dialog.open({ component: "k-typo-search-and-paste-dialog" });
+		}
+		return (t, l) => {
+			let f = _("k-button");
+			return c.characters.length ? (m(), i("div", {
+				key: 0,
+				class: u(["tap-characters", [c.type !== "dialog" && "tap-characters--dropdown"]]),
+				tabindex: "-1"
+			}, [(m(!0), i(e, null, g(j.value, (t, s) => (m(), i(e, null, [!t.lang || t.lang === c.languageCode ? (m(), i("section", {
+				key: s,
+				ref_for: !0,
+				ref_key: "charactersSections",
+				ref: T,
+				class: "tap-characters__section"
+			}, [t.label ? (m(), i("h3", O, v(t.label), 1)) : r("v-if", !0), a("div", {
+				class: "tap-characters__items",
+				style: d({ "--grid-columns": y(A) }),
+				onKeydown: N
+			}, [(m(!0), i(e, null, g(t.characters, (e) => (m(), n(f, {
+				key: e.value,
+				ref_for: !0,
+				ref_key: "characterButtons",
+				ref: D,
+				class: "tap-characters__item",
+				tabindex: "0",
+				role: "menuitem",
+				title: e.label,
+				onClick: (t) => M(e.value)
+			}, {
+				default: S(() => [o(v(e.value), 1)]),
+				_: 2
+			}, 1032, ["title", "onClick"]))), 128))], 36)])) : r("v-if", !0)], 64))), 256)), k.value ? (m(), i("section", {
+				key: j.value.length,
+				class: "search-section"
+			}, [s(f, {
+				icon: "search",
+				class: "tap-characters__item",
+				size: "sm",
+				onClick: I
+			}, {
+				default: S(() => [...l[0] ||= [o(" Search ", -1)]]),
+				_: 1
+			})])) : r("v-if", !0)], 2)) : r("v-if", !0);
+		};
+	}
+}, [["__scopeId", "data-v-eb688596"]]), A = {
+	__name: "DropdownButton",
+	setup(e) {
+		let n = C(), r = h(), a = h([]), o = h(!1), c = t(() => n.language?.code || n.user?.language || "en");
+		(async () => {
+			a.value = await T();
+		})();
+		function l() {
+			r.value.toggle(), o.value = !o.value;
+		}
+		return (e, t) => {
+			let u = _("k-button"), d = _("k-dropdown-content");
+			return m(), i("div", null, [s(u, {
+				dropdown: !0,
+				title: y(n).t("philippoehrlein.typo-and-paste.buttonTitle"),
+				variant: "filled",
+				size: "sm",
+				icon: "typo-and-paste",
+				"aria-haspopup": "menu",
+				"aria-expanded": o.value,
+				onClick: t[0] ||= (e) => l()
+			}, null, 8, ["title", "aria-expanded"]), s(d, {
+				ref_key: "dropdownContent",
+				ref: r,
+				"align-x": "end",
+				role: "menu"
+			}, {
+				default: S(() => [s(k, {
+					characters: a.value,
+					"language-code": c.value,
+					onClose: t[1] ||= (e) => l()
+				}, null, 8, ["characters", "language-code"])]),
+				_: 1
+			}, 512)]);
+		};
+	}
+}, j = {
+	id: "typo-and-paste-dialog-title",
+	class: "sr-only"
+}, M = { class: "sr-only" }, N = {
+	__name: "TypoAndPasteDialog",
+	emits: [
+		"cancel",
+		"close",
+		"input",
+		"submit",
+		"success"
+	],
+	setup(e, { emit: r }) {
+		let i = r, o = C(), c = h([]), l = t(() => o.language?.code || o.user?.language || "en");
+		return (async () => {
+			c.value = await T();
+		})(), (e, t) => {
+			let r = _("k-dialog");
+			return m(), n(r, {
+				"cancel-button": !1,
+				"submit-button": !1,
+				visible: !0,
+				size: "medium",
+				class: "k-typo-and-paste-dialog",
+				role: "dialog",
+				"aria-labelledby": "typo-and-paste-dialog-title",
+				onCancel: t[0] ||= (e) => i("cancel")
+			}, {
+				default: S(() => [
+					a("h2", j, v(y(o).t("philippoehrlein.typo-and-paste.dialogTitle", "Special Characters")), 1),
+					a("p", M, v(y(o).t("philippoehrlein.typo-and-paste.dialogDescription", "Up and down to navigate between sections, left and right to navigate between characters.")), 1),
+					s(k, {
+						characters: c.value,
+						"language-code": l.value,
+						type: "dialog"
+					}, null, 8, ["characters", "language-code"])
+				]),
+				_: 1
+			});
+		};
+	}
+};
+//#endregion
+//#region src/composables/useEventListener.js
+function P(e, t, n, r) {
+	let i, a = () => {
+		i?.(), i = void 0;
+	}, o = (e, t, n, r) => (e.addEventListener(t, n, r), () => e.removeEventListener(t, n, r)), s = x(() => F(e), (e) => {
+		a(), e && (i = o(e, t, n, r));
+	}, {
+		immediate: !0,
+		flush: "post"
+	}), l = () => {
+		s(), a();
+	};
+	return c() && p(l), l;
+}
+function F(e) {
+	let t = b(e);
+	return t?.$el ?? t;
+}
+//#endregion
+//#region src/index.js
+window.panel.plugin("philippoehrlein/typo-and-paste", {
+	icons: { "typo-and-paste": "<path d=\"M10.931 22C9.57512 22 8.37089 21.7948 7.31831 21.3845C6.28357 20.9563 5.47183 20.3498 4.8831 19.5648C4.29437 18.7798 4 17.8432 4 16.7549C4 15.5239 4.31221 14.5427 4.93662 13.8113C5.56103 13.062 6.33709 12.5446 7.26479 12.2592V12.1521C6.46197 11.7596 5.78404 11.2512 5.23099 10.6268C4.69577 9.98451 4.42817 9.11925 4.42817 8.03098C4.42817 6.94272 4.70469 6.02394 5.25775 5.27465C5.82864 4.52535 6.62254 3.96338 7.63944 3.58873C8.65634 3.19624 9.84272 3 11.1986 3C12.5188 3 13.6784 3.20516 14.6775 3.61549C15.6944 4.02582 16.4883 4.61455 17.0592 5.38169C17.63 6.13099 17.9155 7.01408 17.9155 8.03098V8.48591H15.5606V8.19155C15.5427 7.46009 15.3376 6.86244 14.9451 6.39859C14.5704 5.9169 14.0531 5.56901 13.393 5.35493C12.7507 5.123 12.0014 5.00704 11.1451 5.00704C10.5742 5.00704 10.03 5.06948 9.51268 5.19437C8.99531 5.30141 8.53146 5.47981 8.12113 5.72958C7.72864 5.97934 7.41643 6.30939 7.18451 6.71972C6.95258 7.11221 6.83662 7.5939 6.83662 8.16479C6.83662 8.89624 7.01502 9.50282 7.37183 9.98451C7.72864 10.4484 8.19249 10.7962 8.76338 11.0282C9.35211 11.2601 9.98545 11.3761 10.6634 11.3761H12.3225V13.3296H10.7169C10.0033 13.3296 9.31643 13.4188 8.65634 13.5972C7.99624 13.7756 7.46103 14.1056 7.0507 14.5873C6.65822 15.0512 6.46197 15.7202 6.46197 16.5944C6.46197 17.3972 6.6493 18.0484 7.02394 18.5479C7.41643 19.0474 7.96056 19.4131 8.65634 19.6451C9.36995 19.877 10.1906 19.993 11.1183 19.993C12.1174 19.993 12.9469 19.8681 13.607 19.6183C14.2671 19.3685 14.7577 18.985 15.0789 18.4676C15.4 17.9502 15.5606 17.3169 15.5606 16.5676V11.3761H20.1901V13.3563H17.9155V16.4873C17.9155 17.6648 17.6479 18.6639 17.1127 19.4845C16.5953 20.3052 15.8192 20.9296 14.7845 21.3577C13.7498 21.7859 12.4653 22 10.931 22Z\" />" },
+	components: { "k-typo-and-paste-dialog": N },
+	viewButtons: { "typo-and-paste": A },
+	textareaButtons: { "typo-and-paste": {
+		icon: "typo-and-paste",
+		label: "Typo & Paste",
+		click() {
+			window.panel.dialog.open({ component: "k-typo-and-paste-dialog" });
+		}
+	} },
+	writerMarks: { "typo-and-paste": {
+		get button() {
+			return {
+				icon: "typo-and-paste",
+				label: "Typo & Paste"
+			};
+		},
+		commands() {
+			return () => {
+				window.panel.dialog.open({ component: "k-typo-and-paste-dialog" });
+			};
+		},
+		get name() {
+			return "typo-and-paste";
+		}
+	} },
+	use: [function() {
+		P(window, "keydown", (e) => {
+			!e.altKey || e.code !== "KeyT" || window.panel.dialog.open({ component: "k-typo-and-paste-dialog" });
+		});
+	}]
+});
+//#endregion

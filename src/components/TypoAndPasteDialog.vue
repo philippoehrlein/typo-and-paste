@@ -34,7 +34,8 @@
 </template>
 
 <script setup>
-import { computed, ref, usePanel } from "kirbyuse";
+import { usePanel } from "kirbyuse";
+import { computed, ref } from "vue";
 import { useCachedCharacters } from "../composables/useCachedCharacters";
 import CharacterSelector from "./CharacterSelector.vue";
 

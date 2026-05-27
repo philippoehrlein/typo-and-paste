@@ -1,7 +1,7 @@
 # Typo & Paste
 
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Version](https://img.shields.io/badge/version-2.4.1-blue)
+![Version](https://img.shields.io/badge/version-3.0.0-blue)
 
 **Typo & Paste** is a Kirby plugin that allows users to easily manage and insert special characters with multi-language support.
 
@@ -41,7 +41,7 @@
 
 ## Compatibility
 
-This plugin is compatible with Kirby 4 and 5.
+This plugin is compatible with Kirby 6.
 
 ## Installation
 
