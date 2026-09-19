@@ -153,7 +153,7 @@ var D = (e, t) => {
 			})])) : r("v-if", !0)], 2)) : r("v-if", !0);
 		};
 	}
-}, [["__scopeId", "data-v-eb688596"]]), A = {
+}, [["__scopeId", "data-v-6e7ee2ac"]]), A = {
 	__name: "DropdownButton",
 	setup(e) {
 		let n = C(), r = h(), a = h([]), o = h(!1), c = t(() => n.language?.code || n.user?.language || "en");
