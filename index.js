@@ -275,6 +275,9 @@ window.panel.plugin("philippoehrlein/typo-and-paste", {
 				window.panel.dialog.open({ component: "k-typo-and-paste-dialog" });
 			};
 		},
+		get schema() {
+			return {};
+		},
 		get name() {
 			return "typo-and-paste";
 		}
