@@ -15,6 +15,11 @@ export const writerMarks = {
       };
     },
 
+    // Toolbar-only marks still need a schema, as with Kirby's native Clear mark.
+    get schema() {
+      return {};
+    },
+
     get name() {
       return "typo-and-paste";
     },
