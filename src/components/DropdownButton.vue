@@ -11,7 +11,7 @@
       @click="toggle()"
     >
     </k-button>
-    <k-dropdown-content ref="dropdownContent" align-x="end" role="menu">
+    <k-dropdown-content ref="dropdownContent" align-x="end" role="menu" class="tap-characters--dropdown">
       <CharacterSelector
         :characters="characters"
         :language-code="languageCode"

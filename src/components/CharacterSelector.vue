@@ -322,6 +322,7 @@ function openSearchDialog() {
   width: fit-content;
   padding: var(--spacing-2);
   max-height: 60vh;
+  overflow-y: auto;
 }
 
 .tap-characters > :where(*:not(:last-child)) {

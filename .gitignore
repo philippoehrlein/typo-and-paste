@@ -6,6 +6,7 @@
 /vendor
 
 # Build files
+/index.dev.css
 /index.dev.js
 /index.dev.mjs
 

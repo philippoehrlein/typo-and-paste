@@ -1,7 +1,7 @@
 {
   "name": "philippoehrlein/typo-and-paste",
   "type": "module",
-  "version": "3.0.0-beta.1",
+  "version": "3.0.0-beta.2",
   "private": true,
   "description": "A Kirby plugin for managing and inserting special characters with multi-language support.",
   "homepage": "https://github.com/philippoehrlein/typo-and-paste",
@@ -12,8 +12,8 @@
     }
   ],
   "scripts": {
-    "dev": "npx kirbyup serve src/index.js",
-    "build": "npx kirbyup src/index.js",
+    "dev": "kirbyup dev src/index.js",
+    "build": "kirbyup build src/index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier \"src/**\" --write"
@@ -23,8 +23,8 @@
     "autoprefixer": "^10.4.21",
     "eslint-import-resolver-node": "^0.3.9",
     "js-yaml": "^4.1.1",
-    "kirbyup": "^4.0.0-alpha.8",
-    "kirbyuse": "^2.0.0-beta.1",
+    "kirbyup": "4.0.0-beta.2",
+    "kirbyuse": "2.0.0-beta.7",
     "lodash": "^4.17.23",
     "prettier": "^3.5.3"
   }

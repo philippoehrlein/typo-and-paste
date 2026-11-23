@@ -1,4 +1,4 @@
-import { getCurrentScope, onScopeDispose, unref, watch } from "kirbyuse";
+import { getCurrentScope, onScopeDispose, unref, watch } from "vue";
 
 export function useEventListener(target, event, listener, options) {
   let cleanupFn;
