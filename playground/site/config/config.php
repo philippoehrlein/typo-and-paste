@@ -5,11 +5,5 @@ return [
 
   'content' => [
     'locking' => false
-  ],
-
-  'panel' => [
-    'vue' => [
-      'compiler' => false
-    ]
   ]
 ];

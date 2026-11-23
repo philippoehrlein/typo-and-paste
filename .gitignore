@@ -6,6 +6,7 @@
 /vendor
 
 # Build files
+/index.dev.js
 /index.dev.mjs
 
 # Playground files
@@ -13,5 +14,7 @@
 /playground/storage/accounts/*
 /playground/storage/cache/*
 /playground/storage/sessions/*
+/playground/storage/content/home/_changes/*
 
 ideas.md
+update.md
