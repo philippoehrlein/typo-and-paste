@@ -11,6 +11,7 @@
 /index.dev.mjs
 
 # Playground files
+/playground/site/plugins/typo-search-and-paste
 /playground/public/media/*
 /playground/storage/accounts/*
 /playground/storage/cache/*
