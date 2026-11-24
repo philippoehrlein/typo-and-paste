@@ -1,1 +1,1 @@
-<?php go(\Kirby\Panel\Panel::url('site')) ?>
+<?php go($kirby->panel()->url('site')) ?>

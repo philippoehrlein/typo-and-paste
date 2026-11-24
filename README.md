@@ -1,7 +1,7 @@
 # Typo & Paste
 
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Version](https://img.shields.io/badge/version-3.0.0beta-blue)
+![Version](https://img.shields.io/badge/version-3.0.0-blue)
 
 **Typo & Paste** is a Kirby plugin that allows users to easily manage and insert special characters with multi-language support.
 
@@ -41,15 +41,17 @@
 
 ## Compatibility
 
-This plugin is compatible with Kirby 6.
+Typo & Paste 3.x requires Kirby 6 and PHP 8.3 or newer. For Kirby 4 and 5, use [Typo & Paste 2.x](https://github.com/philippoehrlein/typo-and-paste/tree/support/kirby4-5).
 
 ## Installation
 
 ### Composer
 
 ```bash
-composer require philippoehrlein/typo-and-paste
+composer require philippoehrlein/typo-and-paste:^3.0
 ```
+
+For Kirby 4 and 5, run `composer require philippoehrlein/typo-and-paste:^2.0`.
 
 ### Manual Installation
 
@@ -64,7 +66,7 @@ The plugin provides four ways to access special characters:
 
 #### 1. Panel Toolbar Button
 
-In Kirby 5, configure the Panel toolbar button in your page, site, or file blueprint:
+Configure the Panel toolbar button in your page, site, or file blueprint:
 
 ```yaml
 buttons:
@@ -210,7 +212,7 @@ Extend Typo & Paste with a searchable interface for special characters. Simply i
 ### Composer
 
 ```bash
-composer require philippoehrlein/typo-search-and-paste
+composer require philippoehrlein/typo-search-and-paste:^2.0
 ```
 
 ### Github
